@@ -28,8 +28,6 @@ gem 'sidekiq' # background jobs
 
 gem 'httparty' # http parsing
 
-gem 'redis-rails' # redis storage
-
 gem 'whenever', require: false # cron jobs
 
 group :development, :test do

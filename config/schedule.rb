@@ -1,5 +1,3 @@
-every :hour do
-  Organization.find_each do |o|
-    runner "ApiWorker.perform_async(o.id)"
-  end
+every :minute do
+  runner "Organization.each(&:update_payload)"
 end
