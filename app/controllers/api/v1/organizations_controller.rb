@@ -1,6 +1,6 @@
-class Api::V1::OrganizationsController
+class Api::V1::OrganizationsController < ApplicationController
   def show
-    organization = Organization.friendly.find(params[:id])
-    
+    organization = Organization.find(params[:id])
+    render json: organization.payload
   end
 end
