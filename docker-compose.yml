@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:3.7
+    command: mongod --smallfiles --quiet
+    environment:
+      - RAILS_ENV=development
+      - RACK_ENV=development
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: 'redis:latest'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+
+  app:
+    depends_on:
+      - 'mongo'
+      - 'redis'
+      - 'sidekiq'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/app'
+    command: rails s -b '0.0.0.0'
+
+volumes:
+  redis:
+  mongo:
