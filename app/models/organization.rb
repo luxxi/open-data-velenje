@@ -8,8 +8,4 @@ class Organization
   field :url
   field :payload
   field :documentation
-
-  def update_payload
-    ApiWorker.perform_async(id)
-  end
 end
