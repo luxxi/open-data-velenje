@@ -26,9 +26,9 @@ gem 'mongoid-slug' # slug generation for mongoid
 
 gem 'sidekiq' # background jobs
 
-gem 'httparty' # http parsing
+gem 'sidekiq-cron'
 
-gem 'whenever', require: false # cron jobs
+gem 'httparty' # http parsing
 
 gem 'redis-rails', '~> 5'
 

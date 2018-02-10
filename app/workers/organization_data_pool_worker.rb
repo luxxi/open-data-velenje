@@ -1,4 +1,4 @@
-class ApiWorker
+class OrganizationDataPoolWorker
   include Sidekiq::Worker
   require 'nokogiri'
   require 'httparty'
@@ -6,7 +6,7 @@ class ApiWorker
   def perform(id)
     organization = Organization.find(id)
     url = organization.url
-    response = HTTParty.get(url, :verify => false).parsed_response
+    response = HTTParty.get(url, verify: false).parsed_response
     if response.class == Hash
       json_payload = response
     else
