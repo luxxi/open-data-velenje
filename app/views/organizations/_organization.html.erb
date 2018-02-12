@@ -1,0 +1,5 @@
+<div>
+  <p><%= organization.name %></p>
+  <p><%= organization.url %></p>
+  <%= link_to 'Edit', edit_organization_registration_path(organization) if current_organization == organization %>
+</div>
