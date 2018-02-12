@@ -9,6 +9,8 @@ services:
       - RACK_ENV=development
     ports:
       - "27017:27017"
+    volumes:
+      - 'mongo:/data/db'
 
   redis:
     image: 'redis:latest'
@@ -23,6 +25,8 @@ services:
     command: bundle exec sidekiq
     depends_on:
       - redis
+    tty: true
+    stdin_open: true
     volumes:
       - .:/app
 
@@ -32,11 +36,15 @@ services:
       - 'redis'
       - 'sidekiq'
     build: .
+    tty: true
+    stdin_open: true
     ports:
       - '3000:3000'
     volumes:
       - '.:/app'
     command: rails s -b '0.0.0.0'
+    tmpfs:
+      - /app/tmp/pids
 
 volumes:
   redis:

@@ -13,6 +13,6 @@ class OrganizationDataPoolWorker
       doc = Nokogiri::HTML(response)
       json_payload = JSON.parse(doc.at('body').content)
     end
-    organization.update(payload: json_payload)
+    ImportOrganizationDataService.new(id).import!(json_payload)
   end
 end
