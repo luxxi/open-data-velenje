@@ -5,7 +5,10 @@ Rails.application.routes.draw do
       resources :organizations, only: :show
     end
   end
-  resource :organizations, only: :update
+
+  resources :organizations, except: [:index, :edit, :show, :new, :create, :destroy] do
+    get 'set_api'
+  end
 
   root to: "home#index"
 end
