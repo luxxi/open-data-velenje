@@ -1,6 +1,7 @@
 <div>
   <p><%= organization.name %></p>
   <p><%= organization.url %></p>
+  <%= link_to 'View payload', api_v1_organization_path(organization) %>
   <%= link_to 'Edit', edit_organization_registration_path(organization) if current_organization == organization %>
   <%= link_to 'Set api', organization_set_api_path(organization) if current_organization == organization %>
 </div>
