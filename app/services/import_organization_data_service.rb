@@ -5,15 +5,15 @@ class ImportOrganizationDataService
 
   def import!(data)
     # payload = @organization.payload ? update : create(data)
-    hash=Hash.new
-    data.map do |key, value|
-      if value.is_a?(Hash)
-        hash[key] = create(value)
-      else
-        hash = hash.merge(attribute(key, value))
-      end
-    end
-    @organization.update!(payload: hash)
+    # hash=Hash.new
+    # data.map do |key, value|
+    #   if value.is_a?(Hash)
+    #     hash[key] = create(value)
+    #   else
+    #     hash = hash.merge(attribute(key, value))
+    #   end
+    # end
+    @organization.update!(payload: create(data).reduce(Hash.new, :merge))
   end
 
   private
@@ -25,11 +25,17 @@ class ImportOrganizationDataService
       if value.is_a?(Hash)
         h[key] = create(value)
       else
+        h = h.merge(attribute(key, value))
         a<<attribute(key, value)
       end
     end
+
     a<<h unless h.empty?
-    return a
+    if a.size == 1
+      return h
+    else
+      return a
+    end
   end
 
   def update
