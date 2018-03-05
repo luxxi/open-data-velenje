@@ -5,18 +5,31 @@ class ImportOrganizationDataService
 
   def import!(data)
     # payload = @organization.payload ? update : create(data)
-    @organization.update!(payload: create(data))
+    hash=Hash.new
+    data.map do |key, value|
+      if value.is_a?(Hash)
+        hash[key] = create(value)
+      else
+        hash = hash.merge(attribute(key, value))
+      end
+    end
+    @organization.update!(payload: hash)
   end
 
   private
+
   def create(hash)
+    a=Array.new
+    h=Hash.new
     hash.map do |key, value|
       if value.is_a?(Hash)
-        { "#{key}" => create(value) }
+        h[key] = create(value)
       else
-        attribute(key, value)
+        a<<attribute(key, value)
       end
     end
+    a<<h unless h.empty?
+    return a
   end
 
   def update
@@ -25,9 +38,10 @@ class ImportOrganizationDataService
 
   def attribute(name, value)
     {
-      "name" => name,
-      "type" => "",
-      "value" => value
+      "name": name,
+      "type": "",
+      "description": "",
+      "value": value
     }
   end
 end

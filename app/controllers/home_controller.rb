@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @organizations = Organization.all
+    @organizations = Organization.where(approved: true)
   end
 end
