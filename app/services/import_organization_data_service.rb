@@ -4,7 +4,7 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    payload = create(data)
+    payload = @organization.payload ? update(data) : create(data)
 
     if payload.is_a?(Array)
       payload = payload.reduce(Hash.new, :merge)
@@ -41,8 +41,20 @@ class ImportOrganizationDataService
   end
 
 
-  def update
+  def update(data)
+    payload = create(data)
 
+    if payload.is_a?(Array)
+      payload = payload.reduce(Hash.new, :merge)
+    end
+
+    @organization.payload.merge(payload) do |_, o, n|
+      if o.is_a?(Array)
+        o.each_with_index.map {|x, i| x.merge(n[i]) {|_,d,e| d.blank? ? e : d}}
+      else
+        n.blank? ? o : n
+      end
+    end
   end
 
   def attribute(value)
