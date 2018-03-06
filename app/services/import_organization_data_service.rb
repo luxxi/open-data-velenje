@@ -27,7 +27,7 @@ class ImportOrganizationDataService
           h[key] << create(v)
         end
       else
-        a << attribute(key, value)
+        h[key]=attribute(value)
       end
     end
 
@@ -45,9 +45,8 @@ class ImportOrganizationDataService
 
   end
 
-  def attribute(name, value)
+  def attribute(value)
     {
-      "name": name,
       "type": "",
       "description": "",
       "value": value
