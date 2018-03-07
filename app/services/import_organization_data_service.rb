@@ -5,11 +5,6 @@ class ImportOrganizationDataService
 
   def import!(data)
     payload = @organization.payload ? update(data) : create(data)
-
-    if payload.is_a?(Array)
-      payload = payload.reduce(Hash.new, :merge)
-    end
-
     @organization.update!(payload: payload)
   end
 
@@ -43,11 +38,6 @@ class ImportOrganizationDataService
 
   def update(data)
     payload = create(data)
-
-    if payload.is_a?(Array)
-      payload = payload.reduce(Hash.new, :merge)
-    end
-
     @organization.payload.deep_merge(payload) do |_, o, n|
       if o.is_a?(Array)
         o.each_with_index.map {|x, i| x.deep_merge(n[i]) {|_,d,e| d.blank? ? e : d}}
