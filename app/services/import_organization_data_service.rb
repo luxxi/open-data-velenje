@@ -48,9 +48,9 @@ class ImportOrganizationDataService
       payload = payload.reduce(Hash.new, :merge)
     end
 
-    @organization.payload.merge(payload) do |_, o, n|
+    @organization.payload.deep_merge(payload) do |_, o, n|
       if o.is_a?(Array)
-        o.each_with_index.map {|x, i| x.merge(n[i]) {|_,d,e| d.blank? ? e : d}}
+        o.each_with_index.map {|x, i| x.deep_merge(n[i]) {|_,d,e| d.blank? ? e : d}}
       else
         n.blank? ? o : n
       end
