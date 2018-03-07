@@ -4,7 +4,8 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    @organization.update!(payload: create(data))
+    payload = @organization.payload ? update(data) : create(data)
+    @organization.update!(payload: payload)
   end
 
   private
@@ -35,8 +36,15 @@ class ImportOrganizationDataService
   end
 
 
-  def update
-
+  def update(data)
+    payload = create(data)
+    @organization.payload.deep_merge(payload) do |_, o, n|
+      if o.is_a?(Array)
+        o.each_with_index.map {|x, i| x.deep_merge(n[i]) {|_,d,e| d.blank? ? e : d}}
+      else
+        n.blank? ? o : n
+      end
+    end
   end
 
   def attribute(value)
