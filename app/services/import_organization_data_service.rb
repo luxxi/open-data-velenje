@@ -4,13 +4,7 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    payload = create(data)
-
-    if payload.is_a?(Array)
-      payload = payload.reduce(Hash.new, :merge)
-    end
-
-    @organization.update!(payload: payload)
+    @organization.update!(payload: create(data))
   end
 
   private
