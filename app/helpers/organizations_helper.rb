@@ -4,13 +4,16 @@ module OrganizationsHelper
     html=""
     hash.map do |key, value|
       html += '<div>'
-      html += f.label key.to_sym
-      html += label_tag value.keys.first.to_sym
-      html += select_tag value.keys.first.to_sym, options_for_select(DataType.all.collect{ |t| [t.name, t.id] })
-      html += label_tag value.keys.last.to_sym
-      html += text_field_tag value.keys.last.to_sym
+      html += f.label key
+      html += f.label value.keys.first
+      html += select_tag value.keys.first.to_s+"[#{key}]", options_for_select(DataType.all.collect{ |t| [t.name, t.id] })
+      html += f.label value.keys.last
+      html += text_field_tag value.keys.last.to_s+"[#{key}]", '', required: true
       html += '</div>'
     end
+    html += '<div>'
+    html += f.submit 'Potrdi'
+    html += '</div>'
     html.html_safe
   end
 
