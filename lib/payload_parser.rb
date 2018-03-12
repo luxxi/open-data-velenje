@@ -16,6 +16,25 @@ module PayloadParser
     return hash
   end
 
+  # updates payload with new type and description values
+  def deep_replace(obj, key, type, description)
+    if obj.respond_to?(:key?) && obj.key?(key)
+      obj[key][:type] = type
+      obj[key][:description] = description
+      return obj
+    end
+
+    if obj.is_a? Hash
+      obj.find { |a| obj[a.first] = deep_replace(a.last, key, type, description) }
+      return obj
+    elsif obj.is_a? Array
+      obj.each_with_index do |o, i|
+        obj[i] = deep_replace(o, key, type, description)
+      end
+      return obj
+    end
+  end
+
   private
 
   def create_fields(value)
