@@ -25,7 +25,9 @@ module PayloadParser
     end
 
     if obj.is_a? Hash
-      obj.find { |a| obj[a.first] = deep_replace(a.last, key, type, description) }
+      obj.map do |k, v|
+       obj[k] = deep_replace(v, key, type, description)
+      end
       return obj
     elsif obj.is_a? Array
       obj.each_with_index do |o, i|
