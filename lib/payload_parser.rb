@@ -1,4 +1,5 @@
 module PayloadParser
+  # parses fields from payload, so you can add DataTypes, display documentation,...
   def crate_hash_from_payload(payload)
     hash = Hash.new
     payload.map do |key, value|
@@ -16,7 +17,7 @@ module PayloadParser
   end
 
   private
-  
+
   def create_fields(value)
     {
       type: value[:type],
