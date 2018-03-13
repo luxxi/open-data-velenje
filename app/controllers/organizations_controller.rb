@@ -1,8 +1,9 @@
 class OrganizationsController < ApplicationController
   include PayloadParser
-  
+  before_action :authenticate_organization!
+  before_action :restrict_set_api, only: :set_api
+
   def set_api
-    @organization = Organization.find(params[:organization_id])
     @payload = @organization.payload
   end
 
@@ -28,5 +29,12 @@ class OrganizationsController < ApplicationController
       payload = deep_replace(payload, key, type_name, description[key])
     end
     return payload
+  end
+
+  def restrict_set_api
+    @organization = Organization.find(params[:organization_id])
+    if current_organization != @organization
+      redirect_to root_path, notice: 'You cannot do that.'
+    end
   end
 end
