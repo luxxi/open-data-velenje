@@ -5,8 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
     dataService = ImportOrganizationDataService.new(resource.id)
     json_payload = dataService.parse_payload
     dataService.import!(json_payload)
-
-    organization_set_api_path(resource.name)
+    OrganizationMailer.new_organization(resource).deliver_now
+    approvement_notice_path
   end
 
   private

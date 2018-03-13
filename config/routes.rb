@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     get 'set_api'
   end
 
+  get 'approvement_notice', to: 'home#approvement_notice'
+
   root to: "home#index"
 end

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Pozdravljeni.</h1>
+    <p>
+      Vaša Open Data Velenje organizacije je bila potrjena.
+    </p>
+    <p>
+      Naslednji korak je, da s pomočjo našega orodja ustvarite dokumentacijo za vaš API. To lahko storite s klikom na spodnjo povezavo.
+    </p>
+    <p>
+      <%= link_to 'Ustvari API dokumentacijo', organization_set_api_url(@organization.name) %>
+    </p>
+    <p>
+      Lep pozdrav, ekipa Open Data Velenje.
+    </p>
+  </body>
+</html>
