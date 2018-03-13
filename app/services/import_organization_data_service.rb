@@ -8,6 +8,18 @@ class ImportOrganizationDataService
     @organization.update!(payload: payload)
   end
 
+  def parse_payload
+    url = @organization.url
+    response = HTTParty.get(url, verify: false).parsed_response
+    if response.class == Hash
+      json_payload = response
+    else
+      doc = Nokogiri::HTML(response)
+      json_payload = JSON.parse(doc.at('body').content)
+    end
+    return json_payload
+  end
+
   private
 
   def create(hash)

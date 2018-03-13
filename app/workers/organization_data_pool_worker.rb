@@ -4,15 +4,8 @@ class OrganizationDataPoolWorker
   require 'httparty'
 
   def perform(id)
-    organization = Organization.find(id)
-    url = organization.url
-    response = HTTParty.get(url, verify: false).parsed_response
-    if response.class == Hash
-      json_payload = response
-    else
-      doc = Nokogiri::HTML(response)
-      json_payload = JSON.parse(doc.at('body').content)
-    end
-    ImportOrganizationDataService.new(id).import!(json_payload)
+    dataService = ImportOrganizationDataService.new(id)
+    json_payload = dataService.parse_payload
+    dataService.import!(json_payload)
   end
 end
