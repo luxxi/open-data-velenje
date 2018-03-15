@@ -44,6 +44,11 @@ class Organization
   field :payload
   field :documentation
 
+  def approve!
+    update!(approved: true)
+    OrganizationMailer.account_approved(self).deliver_now
+  end
+
   def active_for_authentication?
     super && approved?
   end

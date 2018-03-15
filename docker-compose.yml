@@ -29,6 +29,10 @@ services:
     stdin_open: true
     volumes:
       - .:/app
+  mailcatcher:
+    image: hinshun/mailcatcher
+    ports:
+      - 1080:1080
 
   app:
     depends_on:
@@ -45,6 +49,8 @@ services:
     command: rails s -b '0.0.0.0'
     tmpfs:
       - /app/tmp/pids
+    links:
+     - 'mailcatcher'
 
 volumes:
   redis:

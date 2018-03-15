@@ -4,13 +4,20 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    payload = create(data)
-
-    if payload.is_a?(Array)
-      payload = payload.reduce(Hash.new, :merge)
-    end
-
+    payload = @organization.payload ? update(data) : create(data)
     @organization.update!(payload: payload)
+  end
+
+  def parse_payload
+    url = @organization.url
+    response = HTTParty.get(url, verify: false).parsed_response
+    if response.class == Hash
+      json_payload = response
+    else
+      doc = Nokogiri::HTML(response)
+      json_payload = JSON.parse(doc.at('body').content)
+    end
+    return json_payload
   end
 
   private
@@ -41,8 +48,15 @@ class ImportOrganizationDataService
   end
 
 
-  def update
-
+  def update(data)
+    payload = create(data)
+    @organization.payload.deep_merge(payload) do |_, o, n|
+      if o.is_a?(Array)
+        o.each_with_index.map {|x, i| x.deep_merge(n[i]) {|_,d,e| d.blank? ? e : d}}
+      else
+        n.blank? ? o : n
+      end
+    end
   end
 
   def attribute(value)
