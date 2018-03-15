@@ -1,19 +1,83 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenDataVelenje</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Open Data Velenje</title>
+
     <%= csrf_meta_tags %>
+
+		<!-- MetisMenu CSS -->
+		<!-- <link rel="stylesheet" href="assets/plugins/metisMenu/metisMenu.min.css"> -->
+
+		<!-- Custom CSS -->
+		<!-- <link rel="stylesheet" href="css/kavach.min.css"> -->
+		<!-- <link rel="stylesheet" href="css/animate.css"> -->
+
+		<!-- Change Color CSS -->
+		<!-- <link rel="stylesheet" href="css/skin/default-skin.css" /> -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%= render 'header' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <div>
       <%= display_session_links %>
     </div>
-    <%= yield %>
+    <div id="page-wrapper">
+      <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+          <h3 class="text-themecolor">Blank</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Advance</a></li>
+            <li class="breadcrumb-item active">Blank</li>
+          </ol>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <!-- /row -->
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="widget default-widget">
+              <h2>Blank Page</h2>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+    </div>
+
+    <%= render 'footer' %>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <!-- <script src="assets/plugins/metisMenu/metisMenu.min.js"></script> -->
+
+    <!-- <script src="assets/plugins/slim-scroll/js/jquery.slimscroll.js"></script> -->
+
+    <!-- Loader JavaScript -->
+    <!-- <script src="js/loader.js"></script> -->
+
+    <!-- Custom Theme JavaScript -->
+    <!-- <script src="js/kavach.min.js"></script> -->
+
   </body>
 </html>
