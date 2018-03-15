@@ -14,7 +14,4 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
-//= require metisMenu.min
-//= require kavach.min
-//= require jquery.slimscroll.min
 //= require_tree .
