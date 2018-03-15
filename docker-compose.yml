@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  webserver:
+    build: ./nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - app
+
   mongo:
     image: mongo:3.7
     command: mongod --smallfiles --quiet
@@ -42,7 +49,7 @@ services:
       - '3000:3000'
     volumes:
       - '.:/app'
-    command: rails s -b '0.0.0.0'
+    command: rails s --port 3000 --binding 0.0.0.0
     tmpfs:
       - /app/tmp/pids
 
