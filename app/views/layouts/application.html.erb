@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenDataVelenje</title>
+    <title>Open Data Velenje</title>
     <%= csrf_meta_tags %>
+    <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div>
-      <%= display_session_links %>
+    <%= render 'header' %>
+    <div id="page-wrapper">
+      <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+          <h3 class="text-themecolor">Blank</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Advance</a></li>
+            <li class="breadcrumb-item active">Blank</li>
+          </ol>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <!-- /row -->
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="widget default-widget">
+              <h2>Blank Page</h2>
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
+              <div>
+                <%= display_session_links %>
+              </div>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
     </div>
-    <%= yield %>
+    <%= render 'footer' %>
   </body>
 </html>
