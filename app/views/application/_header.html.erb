@@ -16,6 +16,8 @@
     <ul class="nav navbar-top-links navbar-left header-search-form hidden-xs">
       <%= display_menu_toggle_button if organization_signed_in? %>
     </ul>
+    <%= display_session_links %>
+
     <%= render 'user_nav' if organization_signed_in? %>
     <!-- /.navbar-top-links -->
 

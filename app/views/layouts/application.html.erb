@@ -22,20 +22,14 @@
     <%= render 'header' %>
     <div id="page-wrapper">
       <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-          <h3 class="text-themecolor">Blank</h3>
-        </div>
       </div>
       <div class="container-fluid">
         <!-- /row -->
         <div class="row">
           <div class="col-md-12 col-sm-12">
             <div class="widget default-widget">
-              <h2>Blank Page</h2>
-              <p class="notice"><%= notice %></p>
-              <p class="alert"><%= alert %></p>
               <div>
-                <%= display_session_links %>
+                <%= display_messages %>
               </div>
               <%= yield %>
             </div>

@@ -10,4 +10,11 @@ module ApplicationHelper
   def display_menu_toggle_button
     '<li><a class="menu-brand" id="menu-toggle"><span class="ti-view-grid"></span></a></li>'.html_safe
   end
+
+  def display_messages
+    html = ''
+    html += "<p class='notice'>#{notice}</p>" if notice
+    html += "<p class='alert'>#{alert}</p>" if alert
+    html.html_safe
+  end
 end
