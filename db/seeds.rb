@@ -48,6 +48,8 @@ data_type_list = [
   { name: "AREA".humanize, data: "urn:oc:attributeType:area" },
   { name: "POSITION".humanize, data: "urn:oc:attributeType:position" },
   { name: "LOCATION".humanize, data: "geo:point" },
+  { name: "LOCATION_LAT".humanize, data: "urn:oc:attributeType:positionLat" },
+  { name: "LOCATION_LANG".humanize, data: "urn:oc:attributeType:positionLang" },
   { name: "COMMENTS".humanize, data: "urn:oc:attributeType:comments" },
   { name: "RANKING".humanize, data: "urn:oc:attributeType:ranking" },
   { name: "ORIGIN".humanize, data: "urn:oc:attributeType:origin" },
