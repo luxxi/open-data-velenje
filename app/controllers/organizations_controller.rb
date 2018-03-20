@@ -1,7 +1,11 @@
 class OrganizationsController < ApplicationController
   include PayloadParser
-  before_action :authenticate_organization!
+  before_action :authenticate_organization!, except: :index
   before_action :restrict_set_api, only: :set_api
+
+  def index
+    @organizations = Organization.where(approved: true)
+  end
 
   def set_api
     @payload = @organization.payload

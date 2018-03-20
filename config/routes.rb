@@ -10,15 +10,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :organizations, except: [:index, :edit, :show, :new, :create, :destroy] do
+  resources :organizations, except: [:edit, :show, :new, :create, :destroy] do
     get 'set_api'
   end
 
   get 'approvement_notice', to: 'home#approvement_notice'
 
   authenticated :organization do
-      root 'home#index', as: :authenticated_root
+      root 'organizations#index', as: :authenticated_root
   end
 
   root to: "home#landing"
+
+  get 'organizations', to: 'home#index'
 end
