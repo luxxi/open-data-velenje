@@ -11,6 +11,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position:relative;
 }
 
 .bg-1{
@@ -27,4 +28,11 @@
 
 .bg-4{
   background-image: image-url("landing4.jpg");
+}
+
+.organicity-logo{
+  max-height: 10vw;
+  position:absolute;
+  bottom:0;
+  right:0;
 }
