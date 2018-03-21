@@ -1,0 +1,30 @@
+.page-titles{
+  padding: 0px !important;
+}
+
+.bg{
+    /* The image used */
+    /* Full height */
+    height: 50vh;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-1{
+  background-image: image-url("landing1.jpg");
+}
+
+.bg-2{
+  background-image: image-url("landing2.jpg");
+}
+
+.bg-3{
+  background-image: image-url("landing3.jpg");
+}
+
+.bg-4{
+  background-image: image-url("landing4.jpg");
+}

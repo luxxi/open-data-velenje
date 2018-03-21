@@ -21,19 +21,7 @@
   <body>
     <%= render 'header' %>
     <div id="page-wrapper">
-      <div class="row page-titles">
-      </div>
-      <div class="container-fluid">
-        <!-- /row -->
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <div class="widget default-widget">
-              <%= yield %>
-            </div>
-          </div>
-        </div>
-        <!-- /row -->
-      </div>
+      <%= yield %>
     </div>
     <%= render 'footer' %>
     <!-- Metis Menu Plugin JavaScript -->
