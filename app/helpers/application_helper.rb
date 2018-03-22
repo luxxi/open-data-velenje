@@ -8,7 +8,11 @@ module ApplicationHelper
   end
 
   def display_menu_toggle_button
-    '<li><a class="menu-brand" id="menu-toggle"><span class="ti-view-grid"></span></a></li>'.html_safe
+    '<li><a class="menu-brand white" id="menu-toggle"><span class="ti-view-grid"></span></a></li>'.html_safe
+  end
+
+  def display_mobile_menu_toggle_button
+    '<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>'.html_safe
   end
 
   def display_dropdown_options
@@ -25,8 +29,8 @@ module ApplicationHelper
 
   def display_messages
     html = ''
-    html += "<p class='notice'>#{notice}</p>" if notice
-    html += "<p class='alert'>#{alert}</p>" if alert
+    html += "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>#{notice}</div>" if notice
+    html += "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>#{alert}</div>" if alert
     html.html_safe
   end
 end

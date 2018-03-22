@@ -1,18 +1,17 @@
 <div id="wrapper" class="<%= 'active' unless organization_signed_in? %>">
   <!-- <div class="fakeLoader"></div> -->
   <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-static-top"  style="margin-bottom: 0">
+  <nav class="navbar navbar-default navbar-static-top guest"  style="margin-bottom: 0">
     <div class="navbar-header">
-      <%= display_mobile_menu_toggle_button if organization_signed_in? %>
       <%= link_to root_path, class: 'navbar-brand' do %>
         <%= image_tag 'logo', class: 'img-responsive' %>
       <% end %>
     </div>
     <!-- /.navbar-header -->
+    <%= link_to 'Organizacije', organizations_path, class: 'btn btn-primary navbar-header navbar-link-center' %>
+    <%= link_to 'API', organizations_path, class: 'btn btn-primary navbar-header navbar-link-center' %>
+    <%= link_to 'Organicity', organizations_path, class: 'btn btn-primary navbar-header navbar-link-center' %>
 
-    <ul class="nav navbar-top-links navbar-left header-search-form hidden-xs">
-      <%= display_menu_toggle_button if organization_signed_in? %>
-    </ul>
     <%= render 'user_nav' %>
     <!-- /.navbar-top-links -->
 

@@ -5,7 +5,7 @@
 .bg{
     /* The image used */
     /* Full height */
-    height: 100%;
+    height: 50vh;
 
     /* Center and scale the image nicely */
     background-position: center;
@@ -35,4 +35,31 @@
 
 .opaque{
   background: rgba(0,0,0,0.65);
+}
+
+nav.navbar.navbar-default.navbar-static-top.guest {
+  background: #0084ff;
+  border-color: #0084ff;
+}
+
+nav.navbar.navbar-default.navbar-static-top {
+  background: #0084ff;
+  border-color: #fff;
+}
+
+.img-footer{
+  float: right;
+  max-height: 50px;
+}
+
+.white{
+  color: white;
+}
+
+.navbar-link-center{
+  padding-top: 16px;
+}
+
+footer.footer{
+  padding: 20px 20px 40px 20px;
 }

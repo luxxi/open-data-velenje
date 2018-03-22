@@ -38,7 +38,7 @@ class OrganizationsController < ApplicationController
   def restrict_set_api
     @organization = Organization.find(params[:organization_id])
     if current_organization != @organization
-      redirect_to root_path, notice: 'You cannot do that.'
+      redirect_to root_path, alert: 'Nedovoljen dostop.'
     end
   end
 end
