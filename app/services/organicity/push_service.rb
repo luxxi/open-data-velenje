@@ -19,8 +19,25 @@ module Organicity
            metadata: {}
          }
         }
+    def update!
+      raise ArgumentError unless @organization.oc_urn
+
+      metadata = {
+         TimeInstant: {
+           type: "urn:oc:attributeType:ISO8601",
+           value: Time.zone.now,
+           metadata: {}
+         },
+         location: {
+           type: "geo:point",
+           value: "46.358002, 15.119371",
+           metadata: {}
+         }
+        }
+
+
       payload = metadata.merge(generate_structure(@organization.payload, ""))
-      ::Api::Organicity::Asset.new.create(payload)
+      ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
     end
 
     private
