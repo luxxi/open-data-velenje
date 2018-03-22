@@ -5,6 +5,12 @@ module Organicity
     end
 
     def push!
+      @organization.oc_urn ? update : create
+    end
+
+    private
+
+    def create
       oc_urn = "urn:oc:entity:velenje:Test:testnipodatki:#{SecureRandom.uuid}"
       metadata = {
 	       id: oc_urn,
@@ -31,7 +37,8 @@ module Organicity
       end
     end
 
-    def update!
+
+    def update
       raise ArgumentError unless @organization.oc_urn
 
       metadata = {
@@ -51,8 +58,6 @@ module Organicity
       payload = metadata.merge(generate_structure(@organization.payload, ""))
       ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
     end
-
-    private
 
     def generate_structure(payload, path)
       hash = Hash.new

@@ -4,14 +4,9 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    payload = if @organization.payload
-      update(data)
-      Organicity::PushService.new(@organization).update!
-    else
-      create(data)
-      Organicity::PushService.new(@organization).push!
-    end
+    payload = if @organization.payload ? update(data) : create(data)
     @organization.update!(payload: payload)
+    Organicity::PushService.new(@organization).push! if @organization.approved
   end
 
   def parse_payload
