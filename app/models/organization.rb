@@ -43,6 +43,7 @@ class Organization
   field :url
   field :payload
   field :documentation
+  field :oc_urn
 
   def approve!
     update!(approved: true)
