@@ -5,7 +5,7 @@
 .bg{
     /* The image used */
     /* Full height */
-    height: 90vh;
+    height: 100%;
 
     /* Center and scale the image nicely */
     background-position: center;
@@ -22,14 +22,6 @@
   background-image: image-url("landing2.jpg");
 }
 
-.bg-3{
-  background-image: image-url("landing3.jpg");
-}
-
-.bg-4{
-  background-image: image-url("landing4.jpg");
-}
-
 .organicity-logo{
   max-height: 10vw;
   position:absolute;
@@ -39,4 +31,8 @@
 
 .no-margin{
   margin: 0 !important;
+}
+
+.opaque{
+  background: rgba(0,0,0,0.65);
 }
