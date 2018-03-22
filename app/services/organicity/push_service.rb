@@ -5,8 +5,9 @@ module Organicity
     end
 
     def push!
+      oc_urn = "urn:oc:entity:velenje:Test:testnipodatki:#{SecureRandom.uuid}"
       metadata = {
-	       id: "urn:oc:entity:velenje:Test:testnipodatki:#{SecureRandom.uuid}",
+	       id: oc_urn,
 	       type: "urn:oc:entityType:velenjedata",
          TimeInstant: {
            type: "urn:oc:attributeType:ISO8601",
@@ -19,6 +20,17 @@ module Organicity
            metadata: {}
          }
         }
+
+      payload = metadata.merge(generate_structure(@organization.payload, ""))
+      begin
+        ::Api::Organicity::Asset.new.create(payload)
+      rescue Exception => e
+        puts e
+      else
+        @organization.update!(oc_urn: oc_urn)
+      end
+    end
+
     def update!
       raise ArgumentError unless @organization.oc_urn
 
