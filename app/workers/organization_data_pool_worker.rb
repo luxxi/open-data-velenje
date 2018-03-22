@@ -1,5 +1,6 @@
 class OrganizationDataPoolWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
   require 'nokogiri'
   require 'httparty'
 
