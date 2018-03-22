@@ -4,7 +4,13 @@ class ImportOrganizationDataService
   end
 
   def import!(data)
-    payload = @organization.payload ? update(data) : create(data)
+    payload = if @organization.payload
+      update(data)
+      Organicity::PushService.new(@organization).update!
+    else
+      create(data)
+      Organicity::PushService.new(@organization).push!
+    end
     @organization.update!(payload: payload)
   end
 
