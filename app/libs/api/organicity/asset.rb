@@ -1,15 +1,15 @@
 module Api::Organicity
   class Asset < Base
-    def get(user_id)
-      api_get("entities/#{user_id}")
+    def get(asset_uuid)
+      api_get("entities/#{asset_uuid}")
     end
 
     def create(params = {})
       api_post("entities", params)
     end
 
-    def update(user_uuid, params = {})
-      api_put("entities/#{user_uuid}", params)
+    def update(asset_uuid, params = {})
+      api_put("entities/#{asset_uuid}/attrs", params)
     end
   end
 end
