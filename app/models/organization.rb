@@ -45,6 +45,8 @@ class Organization
   field :payload
   field :documentation
   field :oc_urn
+  field :fetch_type
+  field :fetch_metadata
 
   def approve!
     update!(approved: true)
