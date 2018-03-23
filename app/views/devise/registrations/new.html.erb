@@ -30,6 +30,11 @@
     <%= f.text_field :url, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :fetch_type, 'Tip zajemanja' %><br />
+    <%= f.select :fetch_type, ["url - json", "url - plain", "api - get", "api - post"] %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

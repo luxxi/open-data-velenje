@@ -33,10 +33,10 @@ class OrganizationsController < ApplicationController
 
   def update_payload(payload, type, description)
     type.map do |key, value|
-      type_name = DataType.find(value).name
-      payload = deep_replace(payload, key, type_name, description[key])
+      type_data= DataType.find(value).data
+      payload = deep_replace(payload, key, type_data, description[key])
     end
-    return payload
+    payload
   end
 
   def restrict_set_api
