@@ -7,6 +7,10 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.where(approved: true)
   end
 
+  def show
+    @organization = Organization.find(params[:id])
+  end
+
   def set_api
     @payload = @organization.payload
   end

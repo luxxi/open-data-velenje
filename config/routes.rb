@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :organizations, except: [:edit, :show, :new, :create, :destroy] do
+  resources :organizations, except: [:edit, :new, :create, :destroy] do
     get 'set_api'
   end
 

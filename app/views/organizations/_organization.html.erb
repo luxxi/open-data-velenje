@@ -1,7 +1,18 @@
-<div>
-  <p><%= organization.name %></p>
-  <p><%= organization.url %></p>
-  <%= link_to 'View payload', api_v1_organization_path(organization) %>
-  <%= link_to 'Edit', edit_organization_registration_path(organization) if current_organization == organization %>
-  <%= link_to 'Set api', organization_set_api_path(organization) if current_organization == organization %>
+<div class="col-md-4 col-sm-6">
+  <div class="service-box">
+    <div class="service-icon">
+      <i class="fa fa-codepen"></i>
+    </div>
+    <div class="service-content">
+      <h3>
+        <%= link_to organization.name, organization %>
+      </h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum.
+      </p>
+    </div>
+    <div class="read">
+      <%= link_to '+', organization %>
+    </div>
+  </div>
 </div>
