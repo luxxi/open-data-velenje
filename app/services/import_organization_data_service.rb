@@ -3,20 +3,32 @@ class ImportOrganizationDataService
     @organization = Organization.find(organization_id)
   end
 
-  def import!(data)
-    payload = @organization.payload ? update(data) : create(data)
+  def import!
+    payload = @organization.payload ? update(fetch_data) : create(fetch_data)
     @organization.update!(payload: payload)
     Organicity::PushService.new(@organization).push! if @organization.verified
   end
 
-  def parse_payload
-    url = @organization.url
-    response = HTTParty.get(url, verify: false).parsed_response
-    if response.class == Hash
-      json_payload = response
-    else
+  def fetch_data
+    json_payload = case @organization.fetch_type
+    when "url - json"
+      HTTParty.get(@organization.url, verify: false).parsed_response
+    when "url - plain"
+      response = HTTParty.get(@organization.url, verify: false).parsed_response
       doc = Nokogiri::HTML(response)
-      json_payload = JSON.parse(doc.at('body').content)
+      JSON.parse(doc.at('body').content)
+    when "api - get"
+      HTTParty.get(
+        @organization.url,
+        body: @organization.fetch_metadata.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+    when "api - post"
+      HTTParty.post(
+        @organization.url,
+        body: @organization.fetch_metadata.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
     end
     json_payload.delete("timeseries") if @organization.name == 'Komunala Velenje'
     json_payload
