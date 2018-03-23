@@ -18,10 +18,8 @@ class ImportOrganizationDataService
       doc = Nokogiri::HTML(response)
       json_payload = JSON.parse(doc.at('body').content)
     end
-    if @organization.name == 'Komunala Velenje'
-      json_payload.delete("timeseries")
-    end
-    return json_payload
+    json_payload.delete("timeseries") if @organization.name == 'Komunala Velenje'
+    json_payload
   end
 
   private
