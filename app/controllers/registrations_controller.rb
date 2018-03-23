@@ -2,9 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_inactive_sign_up_path_for(resource)
-    dataService = ImportOrganizationDataService.new(resource.id)
-    json_payload = dataService.parse_payload
-    dataService.import!(json_payload)
+    ImportOrganizationDataService.new(resource.id).import!
     OrganizationMailer.new_organization(resource).deliver_now
     approvement_notice_path
   end
