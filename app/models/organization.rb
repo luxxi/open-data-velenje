@@ -37,7 +37,6 @@ class Organization
   # field :locked_at,       type: Time
 
   field :approved, type: Boolean, default: false
-  field :verified, type: Boolean, default: false
 
   field :name
   slug :name, history: true
