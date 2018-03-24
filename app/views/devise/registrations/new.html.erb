@@ -1,43 +1,47 @@
-<h2>Sign up</h2>
+<div class="col-md-6 col-md-offset-3">
+  <div class="login-panel panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Ustvarite Račun</h3>
+    </div>
+    <div class="panel-body">
+      <%= image_tag 'logo-blue', class: 'img-responsive' %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <fieldset>
+          <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+          <div class="form-group">
+            <%= f.text_field :name, autofocus: true, placeholder: 'Ime organizacije', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.email_field :email, autocomplete: "email", placeholder: 'E-mail', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: 'Ponovi geslo' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :url, placeholder: 'API URL', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <label>Tip zajemanja</label>
+            <%= f.select :fetch_type, ["url - json", "url - plain", "api - get", "api - post"], {}, { :class => 'form-control' } %>
+          </div>
+
+          <%= f.submit "Ustvari Račun", class: 'btn btn-login' %>
+        </fieldset>
+      <% end %>
+      <div class="container-fluid">
+        <div class="col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :url, 'API URL' %><br />
-    <%= f.text_field :url, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :fetch_type, 'Tip zajemanja' %><br />
-    <%= f.select :fetch_type, ["url - json", "url - plain", "api - get", "api - post"] %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
