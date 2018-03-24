@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'approvement_notice', to: 'home#approvement_notice'
 
   authenticated :organization do
-      root 'organizations#index', as: :authenticated_root
+      root 'home#index', as: :authenticated_root
   end
 
   root to: "home#landing"
