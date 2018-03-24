@@ -3,6 +3,9 @@ class HomeController < ApplicationController
     render layout: 'landing'
   end
 
+  def api
+  end
+
   def approvement_notice
   end
 end

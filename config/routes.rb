@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   root to: "home#landing"
 
   get 'organizations', to: 'home#index'
+
+  get 'api', to: 'home#api'
 end
