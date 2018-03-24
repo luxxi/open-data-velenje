@@ -14,19 +14,10 @@ module Organicity
       oc_urn = "urn:oc:entity:velenje:Test:testnipodatki:#{SecureRandom.uuid}"
       metadata = {
 	       id: oc_urn,
-	       type: "urn:oc:entityType:velenjedata",
-         TimeInstant: {
-           type: "urn:oc:attributeType:ISO8601",
-           value: Time.zone.now,
-           metadata: {}
-         },
-         location: {
-           type: "geo:point",
-           value: "46.358002, 15.119371",
-           metadata: {}
-         }
+	       type: "urn:oc:entityType:velenjedata"
         }
 
+      metadata.merge!(location_field(@organization.location)) if @organization.oc_template
       payload = metadata.merge(generate_structure(@organization.payload, ""))
       begin
         ::Api::Organicity::Asset.new.create(payload)
@@ -40,22 +31,8 @@ module Organicity
 
     def update
       raise ArgumentError unless @organization.oc_urn
-
-      metadata = {
-         TimeInstant: {
-           type: "urn:oc:attributeType:ISO8601",
-           value: Time.zone.now,
-           metadata: {}
-         },
-         location: {
-           type: "geo:point",
-           value: "46.358002, 15.119371",
-           metadata: {}
-         }
-        }
-
-
-      payload = metadata.merge(generate_structure(@organization.payload, ""))
+      payload = timestamp_field.merge(generate_structure(@organization.payload, ""))
+      payload.merge!(location_field(@organization.location)) if @organization.oc_template
       ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
     end
 
@@ -79,6 +56,22 @@ module Organicity
 
     def path_format(path, key)
       path.empty? ? key : "#{path}|#{key}"
+    end
+
+    def location_field(value)
+      location: {
+        type: "geo:point",
+        value: value,
+        metadata: {}
+      }
+    end
+
+    def timestamp_field
+      TimeInstant: {
+        type: "urn:oc:attributeType:ISO8601",
+        value: Time.zone.now,
+        metadata: {}
+      }
     end
   end
 end

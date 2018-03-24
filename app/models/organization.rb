@@ -37,7 +37,6 @@ class Organization
   # field :locked_at,       type: Time
 
   field :approved, type: Boolean, default: false
-  field :verified, type: Boolean, default: false
 
   field :name
   slug :name, history: true
@@ -45,6 +44,9 @@ class Organization
   field :payload
   field :documentation
   field :oc_urn
+  field :oc_template, type: Boolean, default: false
+  field :oc_sync, type: Boolean, default: true
+  field :oc_location
   field :fetch_type
   field :fetch_metadata
 
