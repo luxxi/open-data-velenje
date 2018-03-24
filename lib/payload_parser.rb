@@ -21,20 +21,18 @@ module PayloadParser
     if obj.respond_to?(:key?) && obj.key?(key)
       obj[key][:type] = type
       obj[key][:description] = description
-      return obj
     end
 
     if obj.is_a? Hash
       obj.map do |k, v|
        obj[k] = deep_replace(v, key, type, description)
       end
-      return obj
     elsif obj.is_a? Array
       obj.each_with_index do |o, i|
         obj[i] = deep_replace(o, key, type, description)
       end
-      return obj
     end
+    return obj
   end
 
   private
