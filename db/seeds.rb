@@ -1,3 +1,60 @@
+Organization.destroy_all
+
+Organization.create([
+  {
+    name: "MIC",
+    approved: true,
+    verified: false,
+    fetch_type: "url - plain",
+    fetch_metadata: "",
+    url: "https://evidenca.scv.si/oc/json-mic.php",
+    email: "mic@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Trg Mladosti",
+    approved: true,
+    verified: false,
+    fetch_type: "url - plain",
+    fetch_metadata: "",
+    url: "https://evidenca.scv.si/oc/json-tm.php",
+    email: "tm@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Bicy",
+    approved: true,
+    verified: false,
+    fetch_type: "url - plain",
+    fetch_metadata: "",
+    url: "https://galerija.scv.si/boris/snp.php",
+    email: "bicy@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Komunala Velenje",
+    approved: true,
+    verified: false,
+    fetch_type: "url - json",
+    fetch_metadata: "",
+    url: "https://api.kp-velenje.si/scv/energetika",
+    email: "komunala@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Lokalc - proge",
+    approved: true,
+    verified: false,
+    fetch_type: "api - post",
+    fetch_metadata: { version: "2.0", method: "smartbus.getAllBusTracks", id: 1 },
+    url: "http://guts.velenje.si/VeleBus/androidRPC",
+    email: "lokalc-proge@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  }
+  ])
+
+p "Created #{Organization.count} Organizations"
+
 DataType.destroy_all
 
 data_type_list = [
