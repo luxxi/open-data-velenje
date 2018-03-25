@@ -8,12 +8,15 @@
   </div>
   <div class="widget default-widget">
     <h4>Vizualizacija</h4>
-    <div class="card-body">
-      <canvas id="pie-chart" width="800" height="450"></canvas>
-    </div>
-    <em>
-      Ta organizacije še nima vizualizacije.
-    </em>
+    <% if @organization == Organization.find('komunala-velenje-voda') %>
+      <div class="card-body">
+        <canvas id="pie-chart" width="800" height="450"></canvas>
+      </div>
+    <% else %>
+      <em>
+        Ta organizacije še nima vizualizacije.
+      </em>
+    <% end %>
   </div>
   <div class="widget default-widget">
     <h4>Razvijalci</h4>
