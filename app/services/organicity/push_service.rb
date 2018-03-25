@@ -21,7 +21,7 @@ module Organicity
       data_structure = generate_structure(@organization.payload, "").except("id")
       payload = metadata.merge(data_structure)
       begin
-        ::Api::Organicity::Asset.new.create(payload
+        ::Api::Organicity::Asset.new.create(payload)
       rescue Exception => e
         puts e
       else
