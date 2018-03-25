@@ -66,10 +66,15 @@ footer.footer{
   padding: 20px 20px 40px 20px;
 }
 
-.min-width-200{
-  min-width: 200px;
+.min-width-150{
+  min-width: 150px;
 }
 
 .service-box{
   z-index: 0;
+}
+
+html body .btn-primary
+{
+  background: #0084ff;
 }

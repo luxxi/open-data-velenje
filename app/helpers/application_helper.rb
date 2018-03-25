@@ -24,7 +24,6 @@ module ApplicationHelper
     else
       "<li>#{link_to '<i class="fa fa-sign-in fa-fw"></i> Prijava/Registracija'.html_safe, new_organization_session_path}</li>".html_safe
     end
-
   end
 
   def display_messages
@@ -32,5 +31,13 @@ module ApplicationHelper
     html += "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>#{notice}</div>" if notice
     html += "<div class='alert alert-warning alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>#{alert}</div>" if alert
     html.html_safe
+  end
+
+  def display_header
+    if organization_signed_in?
+      render 'header'
+    else
+      render 'landing_header'
+    end
   end
 end
