@@ -49,11 +49,20 @@ Organization.create([
     oc_location: "46.359332, 15.114921"
   },
   {
-    name: "Komunala Velenje",
+    name: "Komunala Velenje - energetika",
     approved: true,
     fetch_type: "url - json",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/energetika",
+    email: "komunala@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Komunala Velenje - voda",
+    approved: true,
+    fetch_type: "url - json",
+    fetch_metadata: "",
+    url: "https://api.kp-velenje.si/scv/komunala",
     email: "komunala@odv.si",
     password: SecureRandom.urlsafe_base64(7)
   },
