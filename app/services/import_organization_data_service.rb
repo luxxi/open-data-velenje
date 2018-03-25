@@ -6,7 +6,7 @@ class ImportOrganizationDataService
   def import!
     payload = @organization.payload ? update(fetch_data) : create(fetch_data)
     @organization.update!(payload: payload)
-    Organicity::PushService.new(@organization).push! if @organization.oc_sync
+    Organicity::PushService.new(@organization.id).push! if @organization.oc_sync
   end
 
   def fetch_data
