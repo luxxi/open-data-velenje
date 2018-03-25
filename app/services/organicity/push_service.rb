@@ -33,7 +33,7 @@ module Organicity
       raise ArgumentError unless @organization.oc_urn
       payload = timestamp_field.merge(generate_structure(@organization.payload, ""))
       payload.merge!(location_field(@organization.oc_location)) if @organization.oc_template
-      ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
+      ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload.except(:description))
     end
 
     def generate_structure(payload, path)
