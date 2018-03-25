@@ -30,7 +30,10 @@ class ImportOrganizationDataService
         headers: { 'Content-Type' => 'application/json' }
       )
     end
-    json_payload.delete("timeseries") if @organization.name == 'Komunala Velenje'
+    # TODO ugly hack because we dont support array of float values yet
+    if @organization.name == "Komunala Velenje - energetika" || @organization.name == "Komunala Velenje - voda"
+      json_payload.delete("timeseries")
+    end
     json_payload
   end
 
