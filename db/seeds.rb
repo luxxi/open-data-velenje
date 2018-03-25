@@ -78,7 +78,8 @@ Organization.create([
     url: "http://guts.velenje.si/VeleBus/androidRPC",
     email: "lokalc-postaje@odv.si",
     password: SecureRandom.urlsafe_base64(7),
-    oc_sync: false
+    oc_template: true,
+    oc_location: "46.358621, 15.118130"
   },
   {
     name: "Lokalc - aktivni avtobusi",
