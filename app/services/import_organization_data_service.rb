@@ -4,19 +4,23 @@ class ImportOrganizationDataService
   end
 
   def import!
-    payload = @organization.payload ? update(fetch_data) : create(fetch_data)
+    data = fetch_data
+    binding.pry
+    payload = @organization.payload ? update(data) : create(data)
     @organization.update!(payload: payload)
     Organicity::PushService.new(@organization.id).push! if @organization.oc_sync
   end
 
   def fetch_data
     json_payload = case @organization.fetch_type
-    when "url - json"
-      HTTParty.get(@organization.url, verify: false).parsed_response
-    when "url - plain"
+    when "url"
       response = HTTParty.get(@organization.url, verify: false).parsed_response
-      doc = Nokogiri::HTML(response)
-      JSON.parse(doc.at('body').content)
+      if response.class == Hash
+       response
+     else
+       doc = Nokogiri::HTML(response)
+       JSON.parse(doc.at('body').content)
+     end
     when "api - get"
       HTTParty.get(
         @organization.url,
