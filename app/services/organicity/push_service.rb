@@ -43,7 +43,7 @@ module Organicity
           if (value.keys & ["attr_type", "attr_description", "attr_value"]).any?
             obj = {
               type: value["attr_type"],
-              value: value["attr_value"]
+              value: value["attr_value"].tr('()', '')
             }
             hash.merge!(path_format(path, key) => obj)
           else
