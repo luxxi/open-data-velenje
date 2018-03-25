@@ -14,8 +14,6 @@ Rails.application.routes.draw do
     get 'set_api'
   end
 
-  get 'approvement_notice', to: 'home#approvement_notice'
-
   authenticated :organization do
       root 'home#index', as: :authenticated_root
   end
@@ -23,6 +21,10 @@ Rails.application.routes.draw do
   root to: "home#landing"
 
   get 'organizations', to: 'home#index'
-
   get 'api', to: 'home#api'
+  get 'approvement_notice', to: 'home#approvement_notice'
+  get 'organicity', to: 'home#organicity'
+  get 'share', to: 'home#share'
+  get 'join', to: 'home#join'
+
 end

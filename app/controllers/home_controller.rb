@@ -10,7 +10,16 @@ class HomeController < ApplicationController
     render layout: 'landing'
   end
 
+  def share
+  end
+
+  def organicity
+  end
+
   def api
+  end
+
+  def join
   end
 
   def approvement_notice
