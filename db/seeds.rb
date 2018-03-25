@@ -4,7 +4,6 @@ Organization.create([
   {
     name: "MIC",
     approved: true,
-    verified: false,
     fetch_type: "url - plain",
     fetch_metadata: "",
     url: "https://evidenca.scv.si/oc/json-mic.php",
@@ -12,29 +11,46 @@ Organization.create([
     password: SecureRandom.urlsafe_base64(7)
   },
   {
-    name: "Trg Mladosti",
+    name: "Trg Mladosti stavba A",
     approved: true,
-    verified: false,
     fetch_type: "url - plain",
     fetch_metadata: "",
-    url: "https://evidenca.scv.si/oc/json-tm.php",
-    email: "tm@odv.si",
+    url: "https://evidenca.scv.si/oc/json-tm-a.php",
+    email: "tm-a@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Trg Mladosti stavba B",
+    approved: true,
+    fetch_type: "url - plain",
+    fetch_metadata: "",
+    url: "https://evidenca.scv.si/oc/json-tm-b.php",
+    email: "tm-b@odv.si",
+    password: SecureRandom.urlsafe_base64(7)
+  },
+  {
+    name: "Trg Mladosti stavba C",
+    approved: true,
+    fetch_type: "url - plain",
+    fetch_metadata: "",
+    url: "https://evidenca.scv.si/oc/json-tm-c.php",
+    email: "tm-c@odv.si",
     password: SecureRandom.urlsafe_base64(7)
   },
   {
     name: "Bicy",
     approved: true,
-    verified: false,
     fetch_type: "url - plain",
     fetch_metadata: "",
-    url: "https://galerija.scv.si/boris/snp.php",
+    url: "https://galerija.scv.si/boris/snp_info.php",
     email: "bicy@odv.si",
-    password: SecureRandom.urlsafe_base64(7)
+    password: SecureRandom.urlsafe_base64(7),
+    oc_template: true,
+    oc_location: "46.359332, 15.114921"
   },
   {
     name: "Komunala Velenje",
     approved: true,
-    verified: false,
     fetch_type: "url - json",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/energetika",
@@ -42,15 +58,38 @@ Organization.create([
     password: SecureRandom.urlsafe_base64(7)
   },
   {
-    name: "Lokalc - proge",
+    name: "Lokalc - postaje",
     approved: true,
-    verified: false,
     fetch_type: "api - post",
-    fetch_metadata: { version: "2.0", method: "smartbus.getAllBusTracks", id: 1 },
+    fetch_metadata: { version: "2.0", method: "smartbus.getAllBusStations", id: 1 },
     url: "http://guts.velenje.si/VeleBus/androidRPC",
-    email: "lokalc-proge@odv.si",
-    password: SecureRandom.urlsafe_base64(7)
-  }
+    email: "lokalc-postaje@odv.si",
+    password: SecureRandom.urlsafe_base64(7),
+    oc_sync: false
+  },
+  {
+    name: "Lokalc - aktivni avtobusi",
+    approved: true,
+    fetch_type: "api - post",
+    fetch_metadata: { version: "2.0", method: "smartbus.getActiveBusPositions", id: 1 },
+    url: "http://guts.velenje.si/VeleBus/androidRPC",
+    email: "lokalc-aktivni@odv.si",
+    password: SecureRandom.urlsafe_base64(7),
+    oc_template: true,
+    oc_location: "46.358621, 15.118130"
+  },
+  {
+    name: "Lokalc - vozni red",
+    approved: true,
+    fetch_type: "api - post",
+    fetch_metadata: { version: "2.0", method: "smartbus.getBusTrackTimeTable", params: ["4"], id: 1 },
+    url: "http://guts.velenje.si/VeleBus/androidRPC",
+    email: "lokalc-vozni@odv.si",
+    password: SecureRandom.urlsafe_base64(7),
+    oc_template: true,
+    oc_location: "46.358621, 15.118130"
+  },
+
   ])
 
 p "Created #{Organization.count} Organizations"

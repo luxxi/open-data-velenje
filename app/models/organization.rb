@@ -45,7 +45,7 @@ class Organization
   field :documentation
   field :oc_urn
   field :oc_template, type: Boolean, default: false
-  field :oc_sync, type: Boolean, default: true
+  field :oc_sync, type: Boolean, default: false
   field :oc_location
   field :fetch_type
   field :fetch_metadata
