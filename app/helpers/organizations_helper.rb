@@ -30,18 +30,44 @@ module OrganizationsHelper
   def display_documentation(payload)
     hash = crate_hash_from_payload(payload)
     html = ""
+    html += <<-HTML
+      <div class="card-body">
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <div class="table-wrapper">
+              <div class="table-title theme-bg">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <h2 class="padding-bottom-20">Dokumentacija</h2>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Ime polja</th>
+                    <th>Podatkovni tip</th>
+                    <th>Opis</th>
+                  </tr>
+                </thead>
+                <tbody>
+    HTML
     hash.map do |key, value|
       html += <<-HTML
-        <div>
-          <label>Ime polja:</label>
-          <label>#{key}</label>
-          <label>Podatkovni tip:</label>
-          <label>#{value[:attr_type]}</label>
-          <label>Opis:</label>
-          <label>#{value[:attr_description]}</label>
-        </div>
+        <tr>
+          <td>#{key}</td>
+          <td>#{DataType.find_by(data: value[:attr_type]).name}</td>
+          <td>#{value[:attr_description]}</td>
+        </tr>
       HTML
     end
+    html += <<-HTML
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    HTML
     html.html_safe
   end
 end
