@@ -45,7 +45,7 @@ module Organicity
           if (value.keys & ["attr_type", "attr_description", "attr_value"]).any?
             obj = {
               type: value["attr_type"].blank? ? "urn:oc:datatype:string" : value["attr_type"],
-              value: value["attr_value"].is_a?(String) ? value["attr_value"].tr('()', '') : value["attr_value"]
+              value: value["attr_value"].is_a?(String) ? value["attr_value"].delete!("<>=() ") : value["attr_value"]
             }
             hash.merge!(path_format(path, key) => obj)
           else
