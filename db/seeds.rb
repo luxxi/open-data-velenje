@@ -54,7 +54,7 @@ Organization.create([
     fetch_type: "url",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/energetika",
-    email: "komunala@odv.si",
+    email: "komunala-energetika@odv.si",
     password: SecureRandom.urlsafe_base64(7)
   },
   {
@@ -63,7 +63,7 @@ Organization.create([
     fetch_type: "url",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/komunala",
-    email: "komunala@odv.si",
+    email: "komunala-voda@odv.si",
     password: SecureRandom.urlsafe_base64(7)
   },
   {
