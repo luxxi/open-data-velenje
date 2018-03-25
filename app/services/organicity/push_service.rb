@@ -17,7 +17,7 @@ module Organicity
 	       type: "urn:oc:entityType:velenjedata"
         }
 
-      metadata.merge!(location_field(@organization.location)) if @organization.oc_template
+      metadata.merge!(location_field(@organization.oc_location)) if @organization.oc_template
       payload = metadata.merge(generate_structure(@organization.payload, ""))
       begin
         ::Api::Organicity::Asset.new.create(payload)
