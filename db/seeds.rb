@@ -55,7 +55,9 @@ Organization.create([
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/energetika",
     email: "komunala-energetika@odv.si",
-    password: SecureRandom.urlsafe_base64(7)
+    password: SecureRandom.urlsafe_base64(7),
+    oc_template: true,
+    oc_location: "46.368893, 15.102958"
   },
   {
     name: "Komunala Velenje - voda",
@@ -64,7 +66,9 @@ Organization.create([
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/komunala",
     email: "komunala-voda@odv.si",
-    password: SecureRandom.urlsafe_base64(7)
+    password: SecureRandom.urlsafe_base64(7),
+    oc_template: true,
+    oc_location: "46.368893, 15.102958"
   },
   {
     name: "Lokalc - postaje",
