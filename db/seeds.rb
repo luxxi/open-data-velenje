@@ -3,6 +3,7 @@ Organization.destroy_all
 Organization.create([
   {
     name: "MIC",
+    description: "Opisani podatki predstavljajo zajem podatkov iz naše vremenske postaje. Trenutno preko JSON-a delimo podatke o temperaturi, hitrosti in smeri vetra ter zračnega pritiska. Podatki se osvežujejo vsako minuto.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -12,6 +13,7 @@ Organization.create([
   },
   {
     name: "Trg Mladosti stavba A",
+    description: "Opisani podatki predstavljajo zajem podatkov iz našega sistema in prikazuje le stanje temperature. Lokacija zajema se nahaja na južni strani objekta A - Šolskega centra Velenje. Podatki se osvežujejo vsako minuto.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -21,6 +23,7 @@ Organization.create([
   },
   {
     name: "Trg Mladosti stavba B",
+    description: "Opisani podatki predstavljajo zajem podatkov iz našega sistema in prikazuje le stanje temperature. Lokacija zajema se nahaja na južni strani objekta A - Šolskega centra Velenje. Podatki se osvežujejo vsako minuto.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -30,6 +33,7 @@ Organization.create([
   },
   {
     name: "Trg Mladosti stavba C",
+    description: "Opisani podatki predstavljajo zajem podatkov iz našega sistema in prikazuje le stanje temperature. Lokacija zajema se nahaja na južni strani objekta A - Šolskega centra Velenje. Podatki se osvežujejo vsako minuto.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -39,6 +43,7 @@ Organization.create([
   },
   {
     name: "Bicy",
+    description: "Sistem BICY je brezplačen avtomatiziran sistem za izposojo mestnih koles. Podatki opisujejo stanje po posameznih postajah. Tako lahko iz podatkov izveste, kje se nahaja postaja in koliko koles je na voljo na posameznih postajah. Podatki se osvežijo z vsakim klicom na API.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -50,6 +55,7 @@ Organization.create([
   },
   {
     name: "Komunala Velenje - energetika",
+    description: "Komunalno podjetje oskrbuje uporabnike s komunalnimi dobrinami na območju občin lastnic družbe. V opisanih podatkih lahko preberete trenutno stanje temperature v krajih Šoštanj in Velenje ter koliko energije je bilo dostavljeno na posamezna prevzemna mesta. Podatki se osvežijo z vsakim klicom na API.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -61,6 +67,7 @@ Organization.create([
   },
   {
     name: "Komunala Velenje - voda",
+    description: "Komunalno podjetje oskrbuje uporabnike s komunalnimi dobrinami na območju občin lastnic družbe. V opisanih podatkih lahko preberete stanje načrpane pitne vode po posameznih vodnih virih. Podatki se osvežujejo vsak dan.",
     approved: true,
     fetch_type: "url",
     fetch_metadata: "",
@@ -72,6 +79,7 @@ Organization.create([
   },
   {
     name: "Lokalc - postaje",
+    description: "“Lokalc” je brezplačna storitev javnega prevoza v Mestni občini Velenje. Podatki opisujejo lokacije posameznih postaj.",
     approved: true,
     fetch_type: "api - post",
     fetch_metadata: { version: "2.0", method: "smartbus.getAllBusStations", id: 1 },
@@ -83,6 +91,7 @@ Organization.create([
   },
   {
     name: "Lokalc - aktivni avtobusi",
+    description: "“Lokalc” je brezplačna storitev javnega prevoza v Mestni občini Velenje. Podatki opisujejo trenutno stanje avtobusov po posameznih progah. Podatki se osvežijo z vsakim klicom na API.",
     approved: true,
     fetch_type: "api - post",
     fetch_metadata: { version: "2.0", method: "smartbus.getActiveBusPositions", id: 1 },
@@ -94,6 +103,7 @@ Organization.create([
   },
   {
     name: "Lokalc - vozni red",
+    description: "“Lokalc” je brezplačna storitev javnega prevoza v Mestni občini Velenje. Podatki opisujejo vozni red po posameznih progah.",
     approved: true,
     fetch_type: "api - post",
     fetch_metadata: { version: "2.0", method: "smartbus.getBusTrackTimeTable", params: ["4"], id: 1 },
