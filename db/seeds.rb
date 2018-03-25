@@ -4,7 +4,7 @@ Organization.create([
   {
     name: "MIC",
     approved: true,
-    fetch_type: "url - plain",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://evidenca.scv.si/oc/json-mic.php",
     email: "mic@odv.si",
@@ -13,7 +13,7 @@ Organization.create([
   {
     name: "Trg Mladosti stavba A",
     approved: true,
-    fetch_type: "url - plain",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://evidenca.scv.si/oc/json-tm-a.php",
     email: "tm-a@odv.si",
@@ -22,7 +22,7 @@ Organization.create([
   {
     name: "Trg Mladosti stavba B",
     approved: true,
-    fetch_type: "url - plain",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://evidenca.scv.si/oc/json-tm-b.php",
     email: "tm-b@odv.si",
@@ -31,7 +31,7 @@ Organization.create([
   {
     name: "Trg Mladosti stavba C",
     approved: true,
-    fetch_type: "url - plain",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://evidenca.scv.si/oc/json-tm-c.php",
     email: "tm-c@odv.si",
@@ -40,7 +40,7 @@ Organization.create([
   {
     name: "Bicy",
     approved: true,
-    fetch_type: "url - plain",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://galerija.scv.si/boris/snp_info.php",
     email: "bicy@odv.si",
@@ -51,7 +51,7 @@ Organization.create([
   {
     name: "Komunala Velenje - energetika",
     approved: true,
-    fetch_type: "url - json",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/energetika",
     email: "komunala@odv.si",
@@ -60,7 +60,7 @@ Organization.create([
   {
     name: "Komunala Velenje - voda",
     approved: true,
-    fetch_type: "url - json",
+    fetch_type: "url",
     fetch_metadata: "",
     url: "https://api.kp-velenje.si/scv/komunala",
     email: "komunala@odv.si",
