@@ -40,8 +40,8 @@ module Organicity
       hash = Hash.new
       payload.map do |key, value|
         if value.is_a?(Hash)
-          if (value.keys & ["type", "description", "value"]).any?
-            hash.merge!(path_format(path, key) => value.except(:description))
+          if (value.keys & ["type", "attr_description", "value"]).any?
+            hash.merge!(path_format(path, key) => value.except(:attr_description))
           else
             hash.merge!(generate_structure(value, path_format(path, key)))
           end

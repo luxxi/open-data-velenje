@@ -81,7 +81,7 @@ class ImportOrganizationDataService
   def attribute(value)
     {
       "type": "",
-      "description": "",
+      "attr_description": "",
       "value": value
     }
   end

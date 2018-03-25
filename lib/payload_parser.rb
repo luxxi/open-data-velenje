@@ -5,7 +5,7 @@ module PayloadParser
     payload.map do |key, value|
       if value.is_a?(Hash)
          if hash = hash.merge(crate_hash_from_payload(value))
-           hash[key] = create_fields(value) unless value[:type].nil? && value[:description].nil?
+           hash[key] = create_fields(value) unless value[:type].nil? && value[:attr_description].nil?
          end
       elsif value.is_a?(Array)
         hash = hash.merge(crate_hash_from_payload(value.first))
@@ -16,20 +16,20 @@ module PayloadParser
     return hash
   end
 
-  # updates payload with new type and description values
-  def deep_replace(obj, key, type, description)
+  # updates payload with new type and attr_description values
+  def deep_replace(obj, key, type, attr_description)
     if obj.respond_to?(:key?) && obj.key?(key)
       obj[key][:type] = type
-      obj[key][:description] = description
+      obj[key][:attr_description] = attr_description
     end
 
     if obj.is_a? Hash
       obj.map do |k, v|
-       obj[k] = deep_replace(v, key, type, description)
+       obj[k] = deep_replace(v, key, type, attr_description)
       end
     elsif obj.is_a? Array
       obj.each_with_index do |o, i|
-        obj[i] = deep_replace(o, key, type, description)
+        obj[i] = deep_replace(o, key, type, attr_description)
       end
     end
     return obj
@@ -40,7 +40,7 @@ module PayloadParser
   def create_fields(value)
     {
       type: value[:type],
-      description: value[:description]
+      attr_description: value[:attr_description]
     }
   end
 end

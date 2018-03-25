@@ -18,10 +18,10 @@ class OrganizationsController < ApplicationController
   def update
     @organization = Organization.find(params[:id])
 
-    safe_params = params.permit(type: params[:type].keys, description: params[:description].keys)
+    safe_params = params.permit(type: params[:type].keys, attr_description: params[:attr_description].keys)
     hash = safe_params.to_h
     payload = @organization.payload
-    payload = update_payload(payload, hash[:type], hash[:description])
+    payload = update_payload(payload, hash[:type], hash[:attr_description])
     if(@organization.update(payload: payload))
       redirect_to root_path, notice: 'Uspešno posodobljeno.'
     else
@@ -31,10 +31,10 @@ class OrganizationsController < ApplicationController
 
   private
 
-  def update_payload(payload, type, description)
+  def update_payload(payload, type, attr_description)
     type.map do |key, value|
       type_data = DataType.find(value).data
-      payload = deep_replace(payload, key, type_data, description[key])
+      payload = deep_replace(payload, key, type_data, attr_description[key])
     end
     payload
   end
