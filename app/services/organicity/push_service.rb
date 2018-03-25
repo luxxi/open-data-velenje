@@ -18,7 +18,7 @@ module Organicity
         }
 
       metadata.merge!(location_field(@organization.oc_location)) if @organization.oc_template
-      payload = metadata.merge(generate_structure(@organization.payload, ""))
+      payload = metadata.merge(generate_structure(@organization.payload.except("description"), ""))
       begin
         ::Api::Organicity::Asset.new.create(payload)
       rescue Exception => e
