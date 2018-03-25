@@ -59,18 +59,22 @@ module Organicity
     end
 
     def location_field(value)
-      location: {
-        type: "geo:point",
-        value: value,
-        metadata: {}
+      {
+        location: {
+          type: "geo:point",
+          value: value,
+          metadata: {}
+        }
       }
     end
 
     def timestamp_field
-      TimeInstant: {
-        type: "urn:oc:attributeType:ISO8601",
-        value: Time.zone.now,
-        metadata: {}
+      {
+        TimeInstant: {
+          type: "urn:oc:attributeType:ISO8601",
+          value: Time.zone.now,
+          metadata: {}
+        }
       }
     end
   end
