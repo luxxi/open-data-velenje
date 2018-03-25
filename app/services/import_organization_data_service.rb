@@ -80,7 +80,7 @@ class ImportOrganizationDataService
 
   def attribute(value)
     {
-      "type": "",
+      "attr_type": "",
       "attr_description": "",
       "attr_value": value
     }

@@ -26,4 +26,22 @@ module OrganizationsHelper
     HTML
     html.html_safe
   end
+
+  def display_documentation(payload)
+    hash = crate_hash_from_payload(payload)
+    html = ""
+    hash.map do |key, value|
+      html += <<-HTML
+        <div>
+          <label>Ime polja:</label>
+          <label>#{key}</label>
+          <label>Podatkovni tip:</label>
+          <label>#{value[:attr_type]}</label>
+          <label>Opis:</label>
+          <label>#{value[:attr_description]}</label>
+        </div>
+      HTML
+    end
+    html.html_safe
+  end
 end

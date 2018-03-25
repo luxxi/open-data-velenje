@@ -1,5 +1,23 @@
 <div class="col-md-12 col-sm-12">
   <div class="widget default-widget">
+    <h3 class="text-themecolor"><%= @organization.name %></h3>
+    <hr />
+    <em>
+      <%= @organization.description || "Ta organizacije še ni dodala opisa" %>
+    </em>
+  </div>
+  <div class="widget default-widget">
+    <h4>Vizualizacija</h4>
+    <em>
+      Ta organizacije še nima vizualizacije.
+    </em>
+  </div>
+  <div class="widget default-widget">
+    <h4>Razvijalci</h4>
+    <%= display_documentation(@organization.payload) %>
+  </div>
+  <div class="widget default-widget">
+    <h4>Uporaba</h4>
     <%= link_to 'Nastavi API dokumentacijo', organization_set_api_path(@organization) %>
     <br />
     <%= link_to 'Poglej api', api_v1_organization_path(@organization) %>
