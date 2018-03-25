@@ -82,7 +82,7 @@ class ImportOrganizationDataService
     {
       "type": "",
       "attr_description": "",
-      "value": value
+      "attr_value": value
     }
   end
 end
