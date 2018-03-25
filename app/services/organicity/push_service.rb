@@ -11,7 +11,7 @@ module Organicity
     private
 
     def create
-      oc_urn = "urn:oc:entity:velenje:Test:testnipodatki:#{SecureRandom.uuid}"
+      oc_urn = "urn:oc:entity:velenje:opendata:#{@organization.slug&.first}:#{SecureRandom.uuid}"
       metadata = {
 	       id: oc_urn,
 	       type: "urn:oc:entityType:velenjedata"
