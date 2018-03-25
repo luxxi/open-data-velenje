@@ -18,9 +18,10 @@ module Organicity
         }
 
       metadata.merge!(location_field(@organization.oc_location)) if @organization.oc_template
-      payload = metadata.merge(generate_structure(@organization.payload, ""))
+      data_structure = generate_structure(@organization.payload, "").except("id")
+      payload = metadata.merge(data_structure)
       begin
-        ::Api::Organicity::Asset.new.create(payload)
+        ::Api::Organicity::Asset.new.create(payload
       rescue Exception => e
         puts e
       else
@@ -31,7 +32,8 @@ module Organicity
 
     def update
       raise ArgumentError unless @organization.oc_urn
-      payload = timestamp_field.merge(generate_structure(@organization.payload, ""))
+      data_structure = generate_structure(@organization.payload, "").except("id")
+      payload = timestamp_field.merge(data_structure)
       payload.merge!(location_field(@organization.oc_location)) if @organization.oc_template
       ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
     end
