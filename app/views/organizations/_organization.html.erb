@@ -8,7 +8,7 @@
         <%= link_to organization.name, organization %>
       </h3>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus, velit nec luctus dictum.
+        <%=h truncate(organization.description, :length => 90) %>
       </p>
     </div>
     <div class="read">
