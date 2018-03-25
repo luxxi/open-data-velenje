@@ -43,11 +43,11 @@ module Organicity
           if (value.keys & ["type", "attr_description", "value"]).any?
             hash.merge!(path_format(path, key) => value.except(:attr_description, :description))
           else
-            hash.merge!(generate_structure(value, path_format(path, key)))
+            hash.merge!(generate_structure(value.except(:description), path_format(path, key)))
           end
         elsif value.is_a?(Array)
           value.each_with_index do |element, i|
-            hash.merge!(generate_structure(element, "#{path_format(path, key)}|#{i}"))
+            hash.merge!(generate_structure(element.except(:description), "#{path_format(path, key)}|#{i}"))
           end
         end
       end
