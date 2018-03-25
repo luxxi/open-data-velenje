@@ -18,7 +18,7 @@ module Organicity
         }
 
       metadata.merge!(location_field(@organization.oc_location)) if @organization.oc_template
-      payload = metadata.merge(generate_structure(@organization.payload.except("description"), ""))
+      payload = metadata.merge(generate_structure(@organization.payload, ""))
       begin
         ::Api::Organicity::Asset.new.create(payload)
       rescue Exception => e
@@ -33,7 +33,7 @@ module Organicity
       raise ArgumentError unless @organization.oc_urn
       payload = timestamp_field.merge(generate_structure(@organization.payload, ""))
       payload.merge!(location_field(@organization.oc_location)) if @organization.oc_template
-      ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload.except("description"))
+      ::Api::Organicity::Asset.new.update(@organization.oc_urn, payload)
     end
 
     def generate_structure(payload, path)
@@ -41,13 +41,17 @@ module Organicity
       payload.map do |key, value|
         if value.is_a?(Hash)
           if (value.keys & ["attr_type", "attr_description", "attr_value"]).any?
-            hash.merge!(path_format(path, key) => value.except(:attr_description, :description))
+            obj = {
+              type: value["attr_type"],
+              value: value["attr_value"]
+            }
+            hash.merge!(path_format(path, key) => obj)
           else
-            hash.merge!(generate_structure(value.except(:description), path_format(path, key)))
+            hash.merge!(generate_structure(value, path_format(path, key)))
           end
         elsif value.is_a?(Array)
           value.each_with_index do |element, i|
-            hash.merge!(generate_structure(element.except(:description), "#{path_format(path, key)}|#{i}"))
+            hash.merge!(generate_structure(element, "#{path_format(path, key)}|#{i}"))
           end
         end
       end
