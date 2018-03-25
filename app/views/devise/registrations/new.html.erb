@@ -14,6 +14,10 @@
           </div>
 
           <div class="form-group">
+            <%= f.text_area :description, autofocus: true, placeholder: 'Opis organizacije', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
             <%= f.email_field :email, autocomplete: "email", placeholder: 'E-mail', class: 'form-control' %>
           </div>
 
@@ -31,7 +35,7 @@
 
           <div class="form-group">
             <label>Tip zajemanja</label>
-            <%= f.select :fetch_type, ["url - json", "url - plain", "api - get", "api - post"], {}, { :class => 'form-control' } %>
+            <%= f.select :fetch_type, ["url", "api - get", "api - post"], {}, { :class => 'form-control' } %>
           </div>
 
           <%= f.submit "Ustvari Račun", class: 'btn btn-login' %>

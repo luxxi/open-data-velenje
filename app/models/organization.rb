@@ -40,6 +40,7 @@ class Organization
 
   field :name
   slug :name, history: true
+  field :description
   field :url
   field :payload
   field :documentation
