@@ -79,18 +79,38 @@ module OrganizationsHelper
     html.html_safe
   end
 
-  def display_chart_label_list(organization)
+  def display_voda_chart_label_list(organization)
     a = Array.new
     organization.payload[:summary].each do |val|
-      a << val[:description][:attr_value]
+      a << val[:description][:attr_value] if val[:unit][:attr_value] == "m3/dan"
     end
     return a
   end
 
-  def display_chart_value_list(organization)
+  def display_voda_chart_value_list(organization)
     a = Array.new
     organization.payload[:summary].each do |val|
-      a << val[:value][:attr_value]
+      a << val[:value][:attr_value] if val[:unit][:attr_value] == "m3/dan"
+    end
+    return a
+  end
+
+  def display_chart_time(organization)
+    DateTime.parse(organization.payload[:ts][:attr_value]).strftime("%d.%m.%Y, %T")
+  end
+
+  def display_energetika_chart_label_list(organization)
+    a = Array.new
+    organization.payload[:summary].each do |val|
+      a << val[:description][:attr_value] if val[:unit][:attr_value] == "MW"
+    end
+    return a
+  end
+
+  def display_energetika_chart_value_list(organization)
+    a = Array.new
+    organization.payload[:summary].each do |val|
+      a << val[:value][:attr_value] if val[:unit][:attr_value] == "MW"
     end
     return a
   end
