@@ -12,6 +12,31 @@
       <div class="card-body">
         <canvas id="pie-chart" width="800" height="450"></canvas>
       </div>
+      <!-- Custom Chartjs JavaScript -->
+      <script>
+        $(function () {
+            "use strict";
+
+        	// New chart
+        	new Chart(document.getElementById("pie-chart"), {
+        		type: 'pie',
+        		data: {
+        		  labels: <%= raw display_chart_label_list(@organization) %>,
+        		  datasets: [{
+        			label: "Prečiščena voda (kubični metri na dan)",
+        			backgroundColor: ["#36a2eb", "#ff6384","#4bc0c0","#ffcd56","#07ff07", "#ffbb84","#4b44c0","#0f1151","#07aa07"],
+        			data: <%= display_chart_value_list(@organization) %>
+        		  }]
+        		},
+        		options: {
+        		  title: {
+        			display: true,
+        			text: 'Proizvodi vode v posameznem viru'
+        		  }
+        		}
+        	});
+        });
+      </script>
     <% else %>
       <em>
         Ta organizacije še nima vizualizacije.

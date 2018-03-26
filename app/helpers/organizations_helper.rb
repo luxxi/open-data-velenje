@@ -78,4 +78,20 @@ module OrganizationsHelper
     HTML
     html.html_safe
   end
+
+  def display_chart_label_list(organization)
+    a = Array.new
+    organization.payload[:summary].each do |val|
+      a << val[:description][:attr_value]
+    end
+    return a
+  end
+
+  def display_chart_value_list(organization)
+    a = Array.new
+    organization.payload[:summary].each do |val|
+      a << val[:value][:attr_value]
+    end
+    return a
+  end
 end
