@@ -102,7 +102,7 @@ module OrganizationsHelper
   def display_energetika_chart_label_list(organization)
     a = Array.new
     organization.payload[:summary].each do |val|
-      a << val[:description][:attr_value] if val[:unit][:attr_value] == "MW"
+      a << val[:description][:attr_value] if val[:unit][:attr_value] == "MW" && (val[:description][:attr_value] == "P Šoštanj (zadnja vrednost)" || val[:description][:attr_value] == "P Velenje (zadnja vrednost)")
     end
     return a
   end
@@ -110,7 +110,7 @@ module OrganizationsHelper
   def display_energetika_chart_value_list(organization)
     a = Array.new
     organization.payload[:summary].each do |val|
-      a << val[:value][:attr_value] if val[:unit][:attr_value] == "MW"
+      a << val[:value][:attr_value] if val[:unit][:attr_value] == "MW" && (val[:description][:attr_value] == "P Šoštanj (zadnja vrednost)" || val[:description][:attr_value] == "P Velenje (zadnja vrednost)")
     end
     return a
   end
