@@ -17,7 +17,7 @@ module ApplicationHelper
 
   def display_dropdown_options
     if organization_signed_in?
-      html = "<li>#{link_to '<i class="fa fa-user fa-fw"></i> Profil'.html_safe, organization_path(current_organization)}</li>"
+      html = "<li>#{link_to '<i class="fa fa-user fa-fw"></i> Profil'.html_safe, root_path}</li>"
       html += "<li>#{link_to '<i class="fa fa-gear fa-fw"></i> Nastavitve'.html_safe, edit_organization_registration_path}</li>"
       html += "<li>#{link_to '<i class="fa fa-sign-out fa-fw"></i> Logout'.html_safe, destroy_organization_session_path, method: :delete}</li>"
       return html.html_safe
