@@ -242,6 +242,45 @@ module OrganizationsHelper
             });
           </script>
         HTML
+      elsif organization == Organization.find('mic')
+        html += <<-HTML
+          <div id="map" style="width: 800px; height: 450px"></div>
+          <script>
+            function initMap() {
+              var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: mic
+              });
+              var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Mic</h1>'+
+                '<div id="bodyContent">'+
+                '<p>Zračni tlak: #{organization.payload[:air_pressure][:attr_value]}mBar</p>'+
+                '<p>Temperatura zraka: #{organization.payload[:temp_air][:attr_value]}°C</p>'+
+                '<p>Podatki zajeti ob: #{DateTime.parse(organization.payload[:timestamp][:attr_value]).strftime("%d.%m.%Y, %T")}</p>'+
+                '</div>'+
+                '</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position: mic,
+                map: map
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+          </script>
+        HTML
       else
         html += <<-HTML
           <em>
