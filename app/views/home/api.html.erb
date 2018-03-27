@@ -1,4 +1,69 @@
-<p>
-  Programski vmesnik oz. API je glavna storitev te platforme. Do vsakega dela podatkov lahko dostopate preko naslovov, ki so napisane v sklopu dokumentacije. Klici API-ja vračajo formatiran JSON, ki ga lahko uporabljate za vaše storitve.
-  Spodaj je prikazn primer klica API-ja in primer rezultata.
-</p>
+<div class="col-md-12 col-sm-12">
+  <div class="widget default-widget">
+    <p>
+      Programski vmesnik oz. API je glavna storitev te platforme. Do vsakega dela podatkov lahko dostopate preko naslovov, ki so napisane v sklopu dokumentacije. Klici API-ja vračajo formatiran JSON, ki ga lahko uporabljate za vaše storitve.
+      Spodaj je prikazn primer klica API-ja in primer rezultata.
+    </p>
+    <br>
+    <p>
+      Vsako polje v odgovoru API-ja je opremljeno z dodatnimi podatki:
+      <ul>
+        <li>"attr_description" pomenski opis polja v besedilni obliki</li>
+        <li>"attr_value" vrednost polja</li>
+        <li>"attr_type" tip polja</li>
+      </ul>
+    </p>
+    <br>
+    <br>
+    <p>
+      <h4>GET zahtevek</h4>
+      <pre><code>http://localhost/api/v1/organizations/:organization_name</code></pre>
+    </p>
+    <p>
+      <pre><code>
+        {
+         "name":{
+            "attr_description":"",
+            "attr_value":"MIC",
+            "attr_type":""
+         },
+         "temp_air":{
+            "attr_description":"",
+            "attr_value":"6.8",
+            "attr_type":""
+         },
+         "temp_low":{
+            "attr_description":"",
+            "attr_value":"6.8",
+            "attr_type":""
+         },
+         "humidity":{
+            "attr_description":"",
+            "attr_value":"100",
+            "attr_type":""
+         },
+         "air_pressure":{
+            "attr_description":"",
+            "attr_value":"966.6",
+            "attr_type":""
+         },
+         "wind_spead":{
+            "attr_description":"",
+            "attr_value":"1.5",
+            "attr_type":""
+         },
+         "timestamp":{
+            "attr_description":"",
+            "attr_value":"2018-03-27 16:35:58",
+            "attr_type":""
+         },
+         "location":{
+            "attr_description":"",
+            "attr_value":"46.372820, 15.099003",
+            "attr_type":""
+         }
+      }
+      </code></pre>
+    </p>
+  </div>
+</div>
