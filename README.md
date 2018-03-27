@@ -1,5 +1,4 @@
 # Open Data Velenje
-=========
 
 Open Data Velenje is a project where we have built an interface through which organizations can share their data in a simple way. With the help of Organicity experiment, we made it possible.
 
