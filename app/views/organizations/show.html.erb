@@ -7,6 +7,10 @@
     </em>
   </div>
   <div class="widget default-widget">
+    <h4>Galerija</h4>
+    <%= display_organization_gallery(@organization) %>
+  </div>
+  <div class="widget default-widget">
     <h4>Vizualizacija</h4>
     <%= display_visualization(@organization) %>
   </div>
@@ -15,7 +19,7 @@
     <%= link_to 'Spremeni API dokumentacijo', organization_set_api_path(@organization) if current_organization == @organization %>
     <%= display_documentation(@organization.payload) %>
   </div>
-  <div class="widget default-widget">
+  <div class="widget default-widget overflow-hidden">
     <h4>Uporaba</h4>
     <p>Do API-ja lahko dostopate na povezavi <code><%= link_to api_v1_organization_url(@organization), api_v1_organization_path(@organization) %></code></p>
     <p>Api bi moral vrniti naslednjo obliko:</p>

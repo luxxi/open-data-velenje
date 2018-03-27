@@ -265,7 +265,7 @@ module OrganizationsHelper
         HTML
       elsif organization == Organization.find('mic')
         html += <<-HTML
-          <div id="map" style="width: 800px; height: 450px"></div>
+          <div id="map" style="width: 100%; height: 450px"></div>
           <script>
             function initMap() {
               var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
@@ -304,7 +304,7 @@ module OrganizationsHelper
         HTML
       elsif organization == Organization.find('trg-mladosti-stavba-a')
         html += <<-HTML
-          <div id="map" style="width: 800px; height: 450px"></div>
+          <div id="map" style="width: 100%; height: 450px"></div>
           <script>
             function initMap() {
               var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
@@ -342,7 +342,7 @@ module OrganizationsHelper
         HTML
       elsif organization == Organization.find('trg-mladosti-stavba-b')
         html += <<-HTML
-          <div id="map" style="width: 800px; height: 450px"></div>
+          <div id="map" style="width: 100%; height: 450px"></div>
           <script>
             function initMap() {
               var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
@@ -380,7 +380,7 @@ module OrganizationsHelper
         HTML
       elsif organization == Organization.find('trg-mladosti-stavba-c')
         html += <<-HTML
-          <div id="map" style="width: 800px; height: 450px"></div>
+          <div id="map" style="width: 100%; height: 450px"></div>
           <script>
             function initMap() {
               var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
@@ -418,7 +418,7 @@ module OrganizationsHelper
         HTML
       elsif organization == Organization.find('lokalc-postaje')
         html += <<-HTML
-          <div id="map" style="width: 800px; height: 450px"></div>
+          <div id="map" style="width: 100%; height: 450px"></div>
           <script>
             function initMap() {
               var mapOptions = {
@@ -450,6 +450,60 @@ module OrganizationsHelper
           </em>
         HTML
       end
-      html.html_safe
+    html.html_safe
+  end
+
+  def display_organization_gallery(organization)
+    html = ""
+    if organization == Organization.find('bicy')
+      html += <<-HTML
+        <div class="col-xs-4 gallery">
+          #{image_tag 'gallery/bicy1', class: 'full-height'}
+        </div>
+        <div class="col-xs-4 gallery">
+          #{image_tag 'gallery/bicy2', class: 'full-height'}
+        </div>
+        <div class="col-xs-4 gallery">
+          #{image_tag 'gallery/bicy3', class: 'full-height'}
+        </div>
+      HTML
+    elsif organization == Organization.find('mic')
+      html += <<-HTML
+        <div class="col-xs-12 gallery">
+          #{image_tag 'gallery/mic1', class: 'full-height'}
+        </div>
+      HTML
+    elsif organization == Organization.find('trg-mladosti-stavba-a') || organization == Organization.find('trg-mladosti-stavba-b') || organization == Organization.find('trg-mladosti-stavba-c')
+      html += <<-HTML
+        <div class="col-xs-12 gallery">
+          #{image_tag 'gallery/scv1', class: 'full-height'}
+        </div>
+      HTML
+    elsif organization == Organization.find('komunala-velenje-voda')
+      html += <<-HTML
+        <div class="col-xs-12 gallery">
+          #{image_tag 'gallery/komunala-voda1', class: 'full-height'}
+        </div>
+      HTML
+    elsif organization == Organization.find('komunala-velenje-energetika')
+      html += <<-HTML
+        <div class="col-xs-12 gallery">
+          #{image_tag 'gallery/komunala-energetika1', class: 'full-height'}
+        </div>
+      HTML
+    elsif organization == Organization.find('lokalc-postaje') || organization == Organization.find('lokalc-vozni-red') || organization == Organization.find('lokalc-aktivni-avtobusi')
+      html += <<-HTML
+      <div class="col-xs-4 gallery">
+        #{image_tag 'gallery/lokalc1', class: 'full-height'}
+      </div>
+      <div class="col-xs-4 gallery">
+        #{image_tag 'gallery/lokalc2', class: 'full-height'}
+      </div>
+      <div class="col-xs-4 gallery">
+        #{image_tag 'gallery/lokalc3', class: 'full-height'}
+      </div>
+      HTML
+    end
+    html.html_safe
   end
 end
