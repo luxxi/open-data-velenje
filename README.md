@@ -1,24 +1,26 @@
-# README
+# Open Data Velenje
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Open Data Velenje is a project where we have built an interface through which organizations can share their data in a simple way. With the help of Organicity experiment, we made it possible.
 
-Things you may want to cover:
+Getting started
+---------------
 
-* Ruby version
+Download [Docker](https://www.docker.com/products/overview). If you are on Mac or Windows, [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/). If you're using [Docker for Windows](https://docs.docker.com/docker-for-windows/) on Windows 10 pro or later, you must also [switch to Linux containers](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers).
 
-* System dependencies
+Run in this directory:
+```
+docker-compose up --build
+```
+The app will be running at [http://localhost](http://localhost).
 
-* Configuration
+Architecture
+-----
 
-* Database creation
+![Architecture diagram](https://i.imgur.com/rcpCoEV.jpg)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+An organization creates a new account and provide data source (URL) and fetch type.
+Platform periodically pool data from the source, parse and store them in the database.
+Admin should approve organization by setting `approved` to true.
+The approved organization can access API configurator to set up field types and write a short description of a field.
+If `oc_sync` is set to the true platform will push organization data to [Organicity](http://organicity.eu/) (set LOCAL_OC_URL environment variable to point at your local OC Site).
+Organization data is available at endpoint [http://localhost/api/v1/organizations/:organization_name](http://localhost/api/v1/organizations/:organization_name)
