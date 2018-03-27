@@ -23,4 +23,4 @@ Platform periodically pool data from the source, parse and store them in the dat
 Admin should approve organization by setting `approved` to true.
 The approved organization can access API configurator to set up field types and write a short description of a field.
 If `oc_sync` is set to the true platform will push organization data to [Organicity](http://organicity.eu/) (set LOCAL_OC_URL environment variable to point at your local OC Site).
-Oganization data is available at endpoint [http://localhost/api/v1/organizations/:organization_name](http://localhost/api/v1/organizations/:organization_name)
+Organization data is available at endpoint [http://localhost/api/v1/organizations/:organization_name](http://localhost/api/v1/organizations/:organization_name)
