@@ -115,6 +115,30 @@ module OrganizationsHelper
     return a
   end
 
+  def display_bicy_chart_label_list(organization)
+    a = Array.new
+    organization.payload.map do |k,v|
+      a << v[:station][:attr_value] unless k == "ts"
+    end
+    return a
+  end
+
+  def display_bicy_free_chart_value_list(organization)
+    a = Array.new
+    organization.payload.map do |k,v|
+      a << v[:free][:attr_value] unless k == "ts"
+    end
+    return a
+  end
+
+  def display_bicy_all_chart_value_list(organization)
+    a = Array.new
+    organization.payload.map do |k,v|
+      a << v[:available][:attr_value] unless k == "ts"
+    end
+    return a
+  end
+
   def display_visualization(organization)
     html = ""
     if organization == Organization.find('komunala-velenje-voda')
@@ -174,6 +198,47 @@ module OrganizationsHelper
             		  }
             		}
             	});
+            });
+          </script>
+        HTML
+      elsif organization == Organization.find('bicy')
+        html += <<-HTML
+          <div class="card-body">
+            <canvas id="bar-chart" width="800" height="450"></canvas>
+          </div>
+          <script>
+            new Chart(document.getElementById("bar-chart"), {
+              type: 'bar',
+              data: {
+                labels: #{raw display_bicy_chart_label_list(organization)},
+                datasets: [
+                  {
+                    label: "Koles na voljo",
+                    backgroundColor: ["#88aaf6", "#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6","#88aaf6"],
+                    data: #{raw display_bicy_free_chart_value_list(organization)}
+                  },
+                  {
+                    label: "Koles skupaj",
+                    backgroundColor: ["#aaa900", "#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900","#aaa900"],
+                    data: #{raw display_bicy_all_chart_value_list(organization)}
+                  }
+                ]
+              },
+              options: {
+                legend: { display: false },
+                title: {
+                display: true,
+                text: 'Število mest in število koles na voljo na posamezni postaji'
+                },
+                scales: {
+                  xAxes: [{
+                      stacked: true
+                  }],
+                  yAxes: [{
+                      stacked: true
+                  }]
+                }
+              }
             });
           </script>
         HTML
