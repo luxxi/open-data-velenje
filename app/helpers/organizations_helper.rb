@@ -114,4 +114,76 @@ module OrganizationsHelper
     end
     return a
   end
+
+  def display_visualization(organization)
+    html = ""
+    if organization == Organization.find('komunala-velenje-voda')
+      html += <<-HTML
+        <div class="card-body">
+          <canvas id="pie-chart" width="800" height="450"></canvas>
+        </div>
+        <!-- Custom Chartjs JavaScript -->
+        <script>
+          $(function () {
+              "use strict";
+
+          	// New chart
+          	new Chart(document.getElementById("pie-chart"), {
+          		type: 'pie',
+          		data: {
+          		  labels: #{raw display_voda_chart_label_list(organization)},
+          		  datasets: [{
+          			backgroundColor: ["#36a2eb", "#ff6384","#4bc0c0","#ffcd56","#07ff07", "#ffbb84","#4b44c0","#0f1151","#07aa07"],
+          			data: #{display_voda_chart_value_list(organization)}
+          		  }]
+          		},
+          		options: {
+          		  title: {
+          			display: true,
+          			text: "Prečiščena voda (kubični metri na dan). Čas zajetja: #{ raw display_chart_time(organization) }"
+          		  }
+          		}
+          	});
+          });
+          </script>
+        HTML
+      elsif organization == Organization.find('komunala-velenje-energetika')
+        html += <<-HTML
+          <div class="card-body">
+            <canvas id="pie-chart" width="800" height="450"></canvas>
+          </div>
+          <!-- Custom Chartjs JavaScript -->
+          <script>
+            $(function () {
+                "use strict";
+
+            	// New chart
+            	new Chart(document.getElementById("pie-chart"), {
+            		type: 'pie',
+            		data: {
+            		  labels: #{raw display_energetika_chart_label_list(organization)},
+            		  datasets: [{
+            			backgroundColor: ["#36a2eb", "#ff6384"],
+            			data: #{display_energetika_chart_value_list(organization)}
+            		  }]
+            		},
+            		options: {
+            		  title: {
+            			display: true,
+            			text: "Proizvedena energija (MW). Čas zajetja: #{raw display_chart_time(organization)}"
+            		  }
+            		}
+            	});
+            });
+          </script>
+        HTML
+      else
+        html += <<-HTML
+          <em>
+            Ta organizacije še nima vizualizacije.
+          </em>
+        HTML
+      end
+      html.html_safe
+  end
 end
