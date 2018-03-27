@@ -139,6 +139,27 @@ module OrganizationsHelper
     return a
   end
 
+  def display_lokalc_markers(organization)
+    html = ""
+    organization.payload[:result].each do |v|
+      html += <<-HTML
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(#{v[:geoLat][:attr_value]}, #{v[:geoLon][:attr_value]}),
+            map: map,
+        });
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent('<div id="content">'+
+              '<h1 id="firstHeading" class="firstHeading">#{v[:naziv][:attr_value]}</h1>'+
+              '</div>');
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+      HTML
+    end
+    html.html_safe
+  end
+
   def display_visualization(organization)
     html = ""
     if organization == Organization.find('komunala-velenje-voda')
@@ -275,6 +296,147 @@ module OrganizationsHelper
               marker.addListener('click', function() {
                 infowindow.open(map, marker);
               });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+          </script>
+        HTML
+      elsif organization == Organization.find('trg-mladosti-stavba-a')
+        html += <<-HTML
+          <div id="map" style="width: 800px; height: 450px"></div>
+          <script>
+            function initMap() {
+              var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: mic
+              });
+              var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Trg Mladosti stavba A</h1>'+
+                '<div id="bodyContent">'+
+                '<p>Temperatura zraka: #{organization.payload[:temp][:attr_value]}°C</p>'+
+                '<p>Podatki zajeti ob: #{DateTime.parse(organization.payload[:timestamp][:attr_value]).strftime("%d.%m.%Y, %T")}</p>'+
+                '</div>'+
+                '</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position: mic,
+                map: map
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+          </script>
+        HTML
+      elsif organization == Organization.find('trg-mladosti-stavba-b')
+        html += <<-HTML
+          <div id="map" style="width: 800px; height: 450px"></div>
+          <script>
+            function initMap() {
+              var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: mic
+              });
+              var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Trg Mladosti stavba B</h1>'+
+                '<div id="bodyContent">'+
+                '<p>Temperatura zraka: #{organization.payload[:temp][:attr_value]}°C</p>'+
+                '<p>Podatki zajeti ob: #{DateTime.parse(organization.payload[:timestamp][:attr_value]).strftime("%d.%m.%Y, %T")}</p>'+
+                '</div>'+
+                '</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position: mic,
+                map: map
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+          </script>
+        HTML
+      elsif organization == Organization.find('trg-mladosti-stavba-c')
+        html += <<-HTML
+          <div id="map" style="width: 800px; height: 450px"></div>
+          <script>
+            function initMap() {
+              var mic = {lat: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[0]}, lng: #{organization.payload[:location][:attr_value].tr(' ','').split(",")[1]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: mic
+              });
+              var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Trg Mladosti stavba C</h1>'+
+                '<div id="bodyContent">'+
+                '<p>Temperatura zraka: #{organization.payload[:temp][:attr_value]}°C</p>'+
+                '<p>Podatki zajeti ob: #{DateTime.parse(organization.payload[:timestamp][:attr_value]).strftime("%d.%m.%Y, %T")}</p>'+
+                '</div>'+
+                '</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+
+              var marker = new google.maps.Marker({
+                position: mic,
+                map: map
+              });
+
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+          </script>
+        HTML
+      elsif organization == Organization.find('lokalc-postaje')
+        html += <<-HTML
+          <div id="map" style="width: 800px; height: 450px"></div>
+          <script>
+            function initMap() {
+              var mapOptions = {
+                zoom: 12,
+                scrollwheel: false,
+                center: new google.maps.LatLng(#{organization.payload["result"][1][:geoLat][:attr_value]}, #{organization.payload["result"][1][:geoLon][:attr_value]})
+              };
+
+              var map = new google.maps.Map(document.getElementById('map'),
+                  mapOptions);
+
+
+              // MARKERS
+              /****************************************************************/
+              var markerCount = #{organization.payload["result"].size};
+              var infowindow = new google.maps.InfoWindow();
+              var marker, i;
+              #{display_lokalc_markers(organization)}
             }
           </script>
           <script async defer
