@@ -2,6 +2,8 @@
 
 Open Data Velenje is a project where we have built an interface through which organizations can share their data in a simple way. With the help of Organicity experiment, we made it possible.
 
+![Organicity logo](https://tranquilcity.files.wordpress.com/2017/03/organicity_large.png?w=285&h=152)
+
 Getting started
 ---------------
 
