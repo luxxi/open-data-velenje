@@ -250,14 +250,6 @@ module OrganizationsHelper
                 title: {
                 display: true,
                 text: 'Število mest in število koles na voljo na posamezni postaji'
-                },
-                scales: {
-                  xAxes: [{
-                      stacked: true
-                  }],
-                  yAxes: [{
-                      stacked: true
-                  }]
                 }
               }
             });
