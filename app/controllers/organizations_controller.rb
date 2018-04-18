@@ -33,8 +33,7 @@ class OrganizationsController < ApplicationController
 
   def update_payload(payload, attr_type, attr_description)
     attr_type.map do |key, value|
-      type_data = DataType.find(value).data
-      payload = deep_replace(payload, key, type_data, attr_description[key])
+      payload = deep_replace(payload, key, value, attr_description[key])
     end
     payload
   end

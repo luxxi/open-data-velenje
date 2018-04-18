@@ -9,11 +9,11 @@ module OrganizationsHelper
         <div class="form-group">
           <h2>#{key}</h2>
           #{f.label 'Podatkovni tip'}
-          #{select_tag value.keys.first.to_s+"[#{key}]", options_for_select(DataType.all.collect{ |t| [t.name, t.id] }.sort), { :class => 'form-control' }}
+          #{select_tag value.keys.first.to_s+"[#{key}]", options_for_select(DataType.all.collect{ |t| [t.name, t.data] }.sort, value[:attr_type]), { :class => 'form-control' }}
         </div>
         <div class="form-group">
           #{f.label 'Opis'}
-          #{text_field_tag value.keys.last.to_s+"[#{key}]", '', required: true, placeholder: 'Opis', class: 'form-control'}
+          #{text_field_tag value.keys.last.to_s+"[#{key}]", value[:attr_description], required: true, placeholder: 'Opis', class: 'form-control'}
         </div>
         <hr />
       HTML
