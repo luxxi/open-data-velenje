@@ -8,6 +8,8 @@ class ImportOrganizationDataService
     payload = @organization.payload ? update(data) : create(data)
     @organization.update!(payload: payload)
     Organicity::PushService.new(@organization.id).push! if @organization.oc_sync
+  rescue => e
+    p e
   end
 
   def fetch_data
@@ -69,6 +71,7 @@ class ImportOrganizationDataService
 
   def update(data)
     payload = create(data)
+    raise ArgumentError if payload.nil?
     @organization.payload.deep_merge(payload) do |_, o, n|
       if o.is_a?(Array)
         o.each_with_index.map {|x, i| x.deep_merge(n[i]) {|_,d,e| d.blank? ? e : d}}

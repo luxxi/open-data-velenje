@@ -15,6 +15,12 @@ docker-compose up --build
 ```
 The app will be running at [http://localhost](http://localhost).
 
+Add Organicity data types:
+
+Run `rake db:seed` to add all Organicity data types into database. This will also add some test organizations, so you can start experimenting with the app right away.
+
+You can always edit the `seeds.rb` file to add your own test organizations or change the data types. You can find all current Organicity data type [here](https://github.com/OrganicityEu/OrganicityEntities/tree/master/src/main/java/eu/organicity/entities/namespace)
+
 Architecture
 -----
 
@@ -22,7 +28,7 @@ Architecture
 
 An organization creates a new account and provide data source (URL) and fetch type.
 Platform periodically pool data from the source, parse and store them in the database.
-Admin should approve organization by setting `approved` to true.
+Admin should approve organization by calling `approve!` function on your desired organization. This will display the organization on `/organizations`, allow the organization to sign in, add API documentation and also send a notification email to the organization stating that they were approved.
 The approved organization can access API configurator to set up field types and write a short description of a field.
 If `oc_sync` is set to the true platform will push organization data to [Organicity](http://organicity.eu/) (set LOCAL_OC_URL environment variable to point at your local OC Site).
 Organization data is available at endpoint [http://localhost/api/v1/organizations/:organization_name](http://localhost/api/v1/organizations/:organization_name)
