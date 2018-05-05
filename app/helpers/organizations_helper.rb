@@ -46,8 +46,8 @@ module OrganizationsHelper
                 <thead>
                   <tr>
                     <th>Ime polja</th>
-                    <th>Opis</th>
                     <th>Podatkovni tip</th>
+                    <th>Opis</th>
                   </tr>
                 </thead>
                 <tbody>
