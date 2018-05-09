@@ -79,8 +79,7 @@ class Organization
         "attr_description": row["Opis polja"],
         "attr_value": row["Podatek"]
       }
-      this.payload = payload
-      this.save
     end
+    update!(payload: payload)
   end
 end
