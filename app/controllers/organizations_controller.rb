@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   include PayloadParser
   before_action :authenticate_organization!, except: [:index, :show]
-  before_action :restrict_set_api, only: :set_api
+  before_action :restrict_access, only: [:set_api, :import_excel_api]
 
   def index
     @organizations = Organization.where(approved: true)
@@ -12,7 +12,16 @@ class OrganizationsController < ApplicationController
   end
 
   def set_api
-    @payload = @organization.payload
+    if @organization.fetch_type == 'excel'
+      excel_api
+    else
+      url_api
+    end
+  end
+
+  def import_excel_api
+    @organization.import_excel(params[:file])
+    redirect_to @organization, notice: 'Api uspešno naložen.'
   end
 
   def update
@@ -29,6 +38,20 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def download_excel_template
+    send_file("#{Rails.root}/public/open_data_velenje_template.xlsx")
+  end
+
+  protected
+
+  def url_api
+    @payload = @organization.payload
+  end
+
+  def excel_api
+    render('upload_api')
+  end
+
   private
 
   def update_payload(payload, attr_type, attr_description)
@@ -38,7 +61,7 @@ class OrganizationsController < ApplicationController
     payload
   end
 
-  def restrict_set_api
+  def restrict_access
     @organization = Organization.find(params[:organization_id])
     if current_organization != @organization
       redirect_to root_path, alert: 'Nedovoljen dostop.'
