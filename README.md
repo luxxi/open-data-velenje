@@ -15,6 +15,18 @@ docker-compose up --build
 ```
 The app will be running at [http://localhost](http://localhost).
 
+After that you should set your .env file based on our .env.example file.
+You will need to set:
+
+```
+LOCAL_OC_URL=your local OC Site url (example: http://88.212.147.244)
+SECRET_KEY_BASE=devise secret key
+DATABASE_PASSWORD=mongodb password
+DATABASE_USER=mongodb username
+DATABASE_NAME=name of your mongo database
+ENVIRONMENT=development or production
+```
+
 Add Organicity data types:
 
 Run `rake db:seed` to add all Organicity data types into database. This will also add some test organizations, so you can start experimenting with the app right away.
