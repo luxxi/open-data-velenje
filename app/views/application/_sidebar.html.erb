@@ -10,6 +10,9 @@
           <li class="<%= 'active' if current_page?(organization_set_api_path(current_organization)) %>">
             <%= link_to 'Nastavi API dokumentacijo', organization_set_api_path(current_organization) %>
           </li>
+          <li class="<%= 'active' if current_page?(organization_upload_api_path(current_organization)) %>">
+            <%= link_to 'Naloži Excel API', organization_upload_api_path(current_organization) %>
+          </li>
           <li>
             <%= link_to 'Preglej API', api_v1_organization_path(current_organization), target: '_blank' %>
           </li>
