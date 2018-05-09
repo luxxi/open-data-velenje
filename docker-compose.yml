@@ -12,8 +12,8 @@ services:
     image: mongo:3.6.4
     command: mongod --auth --smallfiles --quiet
     environment:
-      - RAILS_ENV=production
-      - RACK_ENV=production
+      - RAILS_ENV=${ENVIRONMENT}
+      - RACK_ENV=${ENVIRONMENT}
     ports:
       - "27017:27017"
     volumes:
@@ -34,7 +34,7 @@ services:
       - redis
     tty: true
     environment:
-      - RAILS_ENV=production
+      - RAILS_ENV=${ENVIRONMENT}
     stdin_open: true
     volumes:
       - .:/app
@@ -50,7 +50,7 @@ services:
       - 'sidekiq'
     build: .
     environment:
-      - RAILS_ENV=production
+      - RAILS_ENV=${ENVIRONMENT}
     tty: true
     stdin_open: true
     ports:
