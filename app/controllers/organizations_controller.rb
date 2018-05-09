@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   include PayloadParser
   before_action :authenticate_organization!, except: [:index, :show]
-  before_action :restrict_set_api, only: :set_api
+  before_action :restrict_access, only: [:set_api, upload_api, excel_api]
 
   def index
     @organizations = Organization.where(approved: true)
@@ -13,6 +13,14 @@ class OrganizationsController < ApplicationController
 
   def set_api
     @payload = @organization.payload
+  end
+
+  def import_excel_api
+    Organization.import_excel(params[:file])
+    redirect_to @organization, notice: 'Api uspešno naložen.'
+  end
+
+  def upload_api
   end
 
   def update
@@ -38,7 +46,7 @@ class OrganizationsController < ApplicationController
     payload
   end
 
-  def restrict_set_api
+  def restrict_access
     @organization = Organization.find(params[:organization_id])
     if current_organization != @organization
       redirect_to root_path, alert: 'Nedovoljen dostop.'

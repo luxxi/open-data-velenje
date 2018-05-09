@@ -67,4 +67,20 @@ class Organization
       super # Use whatever other message
     end
   end
+
+  def self.import(file)
+    spreadsheet = Roo::Spreadsheet.open(file.path)
+    header = spreadsheet.row(1)
+    payload = Hash.new
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      payload[row["Ime polja"]] = {
+        "attr_type": DataType.find_by(name: row["Podatkovni tip"]).data,
+        "attr_description": row["Opis polja"],
+        "attr_value": row["Podatek"]
+      }
+      this.payload = payload
+      this.save
+    end
+  end
 end
