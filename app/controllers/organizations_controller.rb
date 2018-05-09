@@ -38,6 +38,10 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def download_excel_template
+    send_file("#{Rails.root}/public/open_data_velenje_template.xlsx")
+  end
+
   protected
 
   def url_api

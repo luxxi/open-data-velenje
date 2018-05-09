@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     get 'set_api'
     get 'upload_api'
     post 'import_excel_api'
+    get 'download_excel_template'
   end
+
 
   authenticated :organization do
       root 'home#index', as: :authenticated_root

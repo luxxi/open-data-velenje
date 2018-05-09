@@ -1,6 +1,23 @@
-<h2>Naloži excel API</h2>
-<p>Vaš API lahko naložite tudi v obliki excel datoteke. Podatki morajo biti vnešeni v našo predlogo, ki jo lahko prenesete tukaj.</p>
-<%= form_tag organization_import_excel_api_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Prenesi" %>
-<% end %>
+<div class="col-md-12 col-sm-12">
+  <div class="card form-card">
+    <div class="card-header">
+      <h4 class="card-title m-b-0">Naloži Excel API</h4>
+      <p>
+        Naložite excel API vaše organizacije. Podatke vnesite v našo excel predlogo, saj bodo le tako ustrezno oblikovani.
+      </p>
+      <p>
+        Predlogo lahko prenesete <strong><%= link_to 'tukaj', organization_download_excel_template_path %></strong>.
+      </p>
+    </div>
+    <div class="card-body">
+      <%= form_tag organization_import_excel_api_path, multipart: true do %>
+        <div class="form-group">
+          <%= file_field_tag :file, class: 'form-control' %>
+        </div>
+        <div class="box-footer">
+          <%= submit_tag "Prenesi", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
