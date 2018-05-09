@@ -19,7 +19,7 @@ Add Organicity data types:
 
 Run `rake db:seed` to add all Organicity data types into database. This will also add some test organizations, so you can start experimenting with the app right away.
 
-You can always edit the `seeds.rb` file to add your own test organizations or change the data types. You can find all current Organicity data type [here](https://github.com/OrganicityEu/OrganicityEntities/tree/master/src/main/java/eu/organicity/entities/namespace)
+You can always edit the `seeds.rb` file to add your own test organizations or change the data types. You can find all current Organicity data types [here](https://github.com/OrganicityEu/OrganicityEntities/tree/master/src/main/java/eu/organicity/entities/namespace).
 
 Architecture
 -----
