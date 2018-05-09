@@ -4,7 +4,7 @@ class OrganizationsApiWorker
 
   def perform
     Organization.each do |organization|
-      OrganizationDataPoolWorker.perform_async(organization.id)
+      OrganizationDataPoolWorker.perform_async(organization.id) unless organization.fetch_type == 'excel'
     end
   end
 end

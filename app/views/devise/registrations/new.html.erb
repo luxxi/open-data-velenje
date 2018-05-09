@@ -19,11 +19,11 @@
           </div>
 
           <div class="form-group">
-            <%= f.email_field :email, autocomplete: "email", placeholder: 'E-mail', class: 'form-control' %>
+            <%= f.email_field :email, autocomplete: "email", placeholder: 'E-pošta', class: 'form-control' %>
           </div>
 
           <div class="form-group">
-            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Geslo' %>
           </div>
 
           <div class="form-group">
@@ -31,12 +31,12 @@
           </div>
 
           <div class="form-group">
-            <%= f.text_field :url, placeholder: 'API URL', class: 'form-control' %>
+            <label>Tip zajemanja</label>
+            <%= f.select :fetch_type, ["url", "api - get", "api - post", "excel"], {}, { :class => 'form-control' } %>
           </div>
 
           <div class="form-group">
-            <label>Tip zajemanja</label>
-            <%= f.select :fetch_type, ["url", "api - get", "api - post"], {}, { :class => 'form-control' } %>
+            <%= f.text_field :url, placeholder: 'API URL (Pusti prazno, če je tip zajemanja Excel)', class: 'form-control' %>
           </div>
 
           <%= f.submit "Ustvari Račun", class: 'btn btn-login' %>

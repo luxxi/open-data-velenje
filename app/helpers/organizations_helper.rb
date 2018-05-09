@@ -28,54 +28,64 @@ module OrganizationsHelper
   end
 
   def display_documentation(payload)
-    hash = crate_hash_from_payload(payload)
-    html = ""
-    html += <<-HTML
-      <div class="card-body">
-        <div class="table-responsive">
+    if payload.present?
+      hash = crate_hash_from_payload(payload)
+      html = ""
+      html += <<-HTML
+        <div>#{link_to 'Spremeni API dokumentacijo', organization_set_api_path(@organization) if current_organization == @organization}</div>
+        <div class="card-body">
           <div class="table-responsive">
-            <div class="table-wrapper">
-              <div class="table-title theme-bg">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <h2 class="padding-bottom-20">Dokumentacija</h2>
+            <div class="table-responsive">
+              <div class="table-wrapper">
+                <div class="table-title theme-bg">
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <h2 class="padding-bottom-20">Dokumentacija</h2>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Ime polja</th>
-                    <th>Podatkovni tip</th>
-                    <th>Opis</th>
-                  </tr>
-                </thead>
-                <tbody>
-    HTML
-    hash.map do |key, value|
-      html += <<-HTML
-        <tr>
-          <td>#{key}</td>
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Ime polja</th>
+                      <th>Podatkovni tip</th>
+                      <th>Opis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
       HTML
-      if value[:attr_type].empty?
-        html += '<td><em>Še ni nastavljeno</em></td>'
-      else
-        html += "<td>#{DataType.find_by(data: value[:attr_type]).name}</td>"
+      hash.map do |key, value|
+        html += <<-HTML
+          <tr>
+            <td>#{key}</td>
+        HTML
+        if value[:attr_type].empty?
+          html += '<td><em>Še ni nastavljeno</em></td>'
+        else
+          html += "<td>#{DataType.find_by(data: value[:attr_type]).name}</td>"
+        end
+        if value[:attr_description].empty?
+          html += '<td><em>Še ni nastavljen</em></td>'
+        else
+          html += "<td>#{value[:attr_description]}</td>"
+        end
+        html += '</tr>'
       end
-      if value[:attr_description].empty?
-        html += '<td><em>Še ni nastavljen</em></td>'
-      else
-        html += "<td>#{value[:attr_description]}</td>"
-      end
-      html += '</tr>'
-    end
-    html += <<-HTML
-            </tbody>
-          </table>
+      html += <<-HTML
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    HTML
+      HTML
+    else
+      html = <<-HTML
+        <em>
+          Ta organizacije še nima nastavljenega API-ja.
+        </em>
+        <div>#{link_to 'Nastavi API zdaj', organization_set_api_path(@organization) if current_organization == @organization}</div>
+      HTML
+    end
     html.html_safe
   end
 
@@ -442,7 +452,7 @@ module OrganizationsHelper
           </em>
         HTML
       end
-    html.html_safe
+      html.html_safe
   end
 
   def display_organization_gallery(organization)

@@ -16,7 +16,6 @@
   </div>
   <div class="widget default-widget">
     <h4>Razvijalci</h4>
-    <%= link_to 'Spremeni API dokumentacijo', organization_set_api_path(@organization) if current_organization == @organization %>
     <%= display_documentation(@organization.payload) %>
   </div>
   <div class="widget default-widget overflow-hidden">
