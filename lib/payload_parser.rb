@@ -16,6 +16,27 @@ module PayloadParser
     return hash
   end
 
+  # removes skipped attributes from payload
+  def filter_skip_attributes_from_payload(obj)
+    if obj.is_a? Hash
+      obj.map do |k, v|
+        if k == "skip_attribute" && v
+          return ''
+        else
+          obj[k] = filter_skip_attributes_from_payload(v)
+          if obj[k].blank?
+            obj.delete(k)
+          end
+        end
+      end
+    elsif obj.is_a? Array
+      obj.each_with_index do |o, i|
+        obj[i] = filter_skip_attributes_from_payload(o)
+      end
+    end
+    return obj
+  end
+
   # updates payload with new attr_type attr_description and skip_attribute values
   def deep_replace(obj, key, attr_type, attr_description, skip_attribute)
     if obj.respond_to?(:key?) && obj.key?(key)

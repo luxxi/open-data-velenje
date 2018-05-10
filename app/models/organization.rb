@@ -2,6 +2,7 @@ class Organization
   include Mongoid::Document
   include Mongoid::Slug
   include Mongoid::Timestamps
+  include PayloadParser
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -82,5 +83,9 @@ class Organization
       }
     end
     update!(payload: payload)
+  end
+
+  def filtered_payload
+    filter_skip_attributes_from_payload(payload)
   end
 end

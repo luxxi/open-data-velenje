@@ -23,7 +23,7 @@
     <p>Do API-ja lahko dostopate na povezavi <code><%= link_to api_v1_organization_url(@organization), api_v1_organization_path(@organization) %></code></p>
     <p>Api bi moral vrniti naslednjo obliko:</p>
     <code id="payload">
-      <%= @organization.payload.to_json %>
+      <%= @organization.filtered_payload.to_json %>
     </code>
   </div>
 </div>
