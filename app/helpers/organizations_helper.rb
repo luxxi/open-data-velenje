@@ -59,21 +59,23 @@ module OrganizationsHelper
                   <tbody>
       HTML
       hash.map do |key, value|
-        html += <<-HTML
-          <tr>
-            <td>#{key}</td>
-        HTML
-        if value[:attr_type].empty?
-          html += '<td><em>Še ni nastavljeno</em></td>'
-        else
-          html += "<td>#{DataType.find_by(data: value[:attr_type]).name}</td>"
+        unless value[:skip_attribute]
+          html += <<-HTML
+            <tr>
+              <td>#{key}</td>
+          HTML
+          if value[:attr_type].empty?
+            html += '<td><em>Še ni nastavljeno</em></td>'
+          else
+            html += "<td>#{DataType.find_by(data: value[:attr_type]).name}</td>"
+          end
+          if value[:attr_description].empty?
+            html += '<td><em>Še ni nastavljen</em></td>'
+          else
+            html += "<td>#{value[:attr_description]}</td>"
+          end
+          html += '</tr>'
         end
-        if value[:attr_description].empty?
-          html += '<td><em>Še ni nastavljen</em></td>'
-        else
-          html += "<td>#{value[:attr_description]}</td>"
-        end
-        html += '</tr>'
       end
       html += <<-HTML
               </tbody>
