@@ -16,20 +16,21 @@ module PayloadParser
     return hash
   end
 
-  # updates payload with new attr_type and attr_description values
-  def deep_replace(obj, key, attr_type, attr_description)
+  # updates payload with new attr_type attr_description and skip_attribute values
+  def deep_replace(obj, key, attr_type, attr_description, skip_attribute)
     if obj.respond_to?(:key?) && obj.key?(key)
       obj[key][:attr_type] = attr_type
       obj[key][:attr_description] = attr_description
+      obj[key][:skip_attribute] = skip_attribute
     end
 
     if obj.is_a? Hash
       obj.map do |k, v|
-       obj[k] = deep_replace(v, key, attr_type, attr_description)
+       obj[k] = deep_replace(v, key, attr_type, attr_description, skip_attribute)
       end
     elsif obj.is_a? Array
       obj.each_with_index do |o, i|
-        obj[i] = deep_replace(o, key, attr_type, attr_description)
+        obj[i] = deep_replace(o, key, attr_type, attr_description, skip_attribute)
       end
     end
     return obj
@@ -40,7 +41,8 @@ module PayloadParser
   def create_fields(value)
     {
       attr_type: value[:attr_type],
-      attr_description: value[:attr_description]
+      attr_description: value[:attr_description],
+      skip_attribute: value[:skip_attribute]
     }
   end
 end

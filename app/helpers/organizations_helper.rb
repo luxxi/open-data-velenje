@@ -13,7 +13,11 @@ module OrganizationsHelper
         </div>
         <div class="form-group">
           #{f.label 'Opis'}
-          #{text_field_tag value.keys.last.to_s+"[#{key}]", value[:attr_description], required: true, placeholder: 'Opis', class: 'form-control'}
+          #{text_field_tag value.keys.second.to_s+"[#{key}]", value[:attr_description], required: true, placeholder: 'Opis', class: 'form-control'}
+        </div>
+        <div class="form-group">
+          #{f.label 'Tega polja ne uvozi v naš API (polje bomo preskočili)'}
+          #{check_box value.keys.last.to_s, key, {checked: value[:skip_attribute]}}
         </div>
         <hr />
       HTML

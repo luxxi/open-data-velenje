@@ -26,11 +26,12 @@ class OrganizationsController < ApplicationController
 
   def update
     @organization = Organization.find(params[:id])
-
-    safe_params = params.permit(attr_type: params[:attr_type].keys, attr_description: params[:attr_description].keys)
+    safe_params = params.permit(attr_type: params[:attr_type].keys, attr_description: params[:attr_description].keys, skip_attribute: params[:skip_attribute].keys)
     hash = safe_params.to_h
+    hash = booleanize_skip_attribute_keys(hash)
+
     payload = @organization.payload
-    payload = update_payload(payload, hash[:attr_type], hash[:attr_description])
+    payload = update_payload(payload, hash[:attr_type], hash[:attr_description], hash[:skip_attribute])
     if(@organization.update(payload: payload))
       redirect_to root_path, notice: 'Uspešno posodobljeno.'
     else
@@ -54,9 +55,20 @@ class OrganizationsController < ApplicationController
 
   private
 
-  def update_payload(payload, attr_type, attr_description)
+  def booleanize_skip_attribute_keys(hash)
+    hash[:skip_attribute].keys.each do |key|
+      if hash[:skip_attribute][key] == '0'
+        hash[:skip_attribute][key] = false
+      else
+        hash[:skip_attribute][key] = true
+      end
+    end
+    hash
+  end
+
+  def update_payload(payload, attr_type, attr_description, skip_attribute)
     attr_type.map do |key, value|
-      payload = deep_replace(payload, key, value, attr_description[key])
+      payload = deep_replace(payload, key, value, attr_description[key], skip_attribute[key])
     end
     payload
   end

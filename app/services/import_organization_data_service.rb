@@ -85,7 +85,8 @@ class ImportOrganizationDataService
     {
       "attr_type": "",
       "attr_description": "",
-      "attr_value": value
+      "attr_value": value,
+      "skip_attribute": false
     }
   end
 end
