@@ -31,6 +31,28 @@ module OrganizationsHelper
     html.html_safe
   end
 
+  def create_visualization_form_from_payload(payload,f)
+    hash = crate_hash_from_payload(payload)
+    html = '<div class="box-body">'
+    html += <<-HTML
+    <div class="form-group">
+      #{f.label 'Naslov diagrama'}
+      #{text_field_tag 'title', '', { required: true, placeholder: 'Naslov diagrama', class: 'form-control' }}
+    </div>
+    <div class="form-group">
+      #{f.label 'Izberi podatke za prikaz'}
+      #{select_tag 'fields', options_for_select(hash.keys), { class: 'form-control', multiple: true }}
+    </div>
+    HTML
+    html += <<-HTML
+      </div>
+      <div class="box-footer">
+        #{f.submit 'Potrdi', class: 'btn btn-primary'}
+      </div>
+    HTML
+    html.html_safe
+  end
+
   def display_documentation(payload)
     if payload.present?
       hash = crate_hash_from_payload(payload)

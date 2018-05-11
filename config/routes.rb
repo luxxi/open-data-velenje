@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     get 'upload_api'
     post 'import_excel_api'
     get 'download_excel_template'
+    get 'new_visualization'
+    post 'create_visualization'
+    patch 'create_visualization'
   end
 
 

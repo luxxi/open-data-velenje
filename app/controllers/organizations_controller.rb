@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   include PayloadParser
   before_action :authenticate_organization!, except: [:index, :show]
-  before_action :restrict_access, only: [:set_api, :import_excel_api]
+  before_action :restrict_access, only: [:set_api, :import_excel_api, :new_visualization]
 
   def index
     @organizations = Organization.where(approved: true)
@@ -22,6 +22,14 @@ class OrganizationsController < ApplicationController
   def import_excel_api
     @organization.import_excel(params[:file])
     redirect_to @organization, notice: 'Api uspešno naložen.'
+  end
+
+  def new_visualization
+    @payload = @organization.payload
+  end
+
+  def create_visualization
+    raise 'tu sem!'.to_yaml
   end
 
   def update

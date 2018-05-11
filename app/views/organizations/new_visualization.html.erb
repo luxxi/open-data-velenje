@@ -1,0 +1,19 @@
+<div class="col-md-12 col-sm-12">
+  <div class="card form-card">
+    <div class="card-header">
+      <h4 class="card-title m-b-0">Ustvarite vizualizacijo za vaš API</h4>
+      <p>
+        S spodnjim orodjem lahko avtomatsko ustvarite vizualizacijo za vašo organizacijo. Izberete tip vizualizacije ter katere podatke želite prikazati. Ko izbiro potrdite, bo vizualizacija vidna na strani vaše organizacije.
+      </p>
+    </div>
+    <div class="card-body">
+      <%= form_for @organization, url: {action: 'create_visualization'} do |f| %>
+        <div class="form-group">
+          <%= f.label 'Tip vizualizacije' %>
+          <%= select_tag 'type', options_for_select({ 'Krožni diagram': 'pie', 'Stolpični diagram': 'bar', 'Točke na zemljevidu': 'map' }), { :class => 'form-control' } %>
+        </div>
+        <%= create_visualization_form_from_payload(@payload,f) %>
+      <% end %>
+    </div>
+  </div>
+</div>
