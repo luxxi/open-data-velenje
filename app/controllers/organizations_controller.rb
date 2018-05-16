@@ -29,7 +29,16 @@ class OrganizationsController < ApplicationController
   end
 
   def create_visualization
-    raise 'tu sem!'.to_yaml
+    @organization = Organization.find(params[:organization_id])
+    visualization = @organization.build_visualization
+    visualization.type = params[:type]
+    visualization.name = params[:title]
+    visualization.data = create_visualization_data(params[:fields], params[:type])
+    if visualization.save
+      redirect_to @organization, notice: 'Vizualizacija uspešno narejena.'
+    else
+      render 'new_visualization', alert: 'Nekaj je šlo narobe!'
+    end
   end
 
   def update
@@ -62,6 +71,16 @@ class OrganizationsController < ApplicationController
   end
 
   private
+
+  def create_visualization_data(fields, type)
+    case type
+      when 'pie'
+        fields
+      when 'bar'
+        fields
+      else
+    end
+  end
 
   def booleanize_skip_attribute_keys(hash)
     hash[:skip_attribute].keys.each do |key|

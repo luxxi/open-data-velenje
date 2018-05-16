@@ -63,6 +63,7 @@ module PayloadParser
     {
       attr_type: value[:attr_type],
       attr_description: value[:attr_description],
+      attr_value: value[:attr_value],
       skip_attribute: value[:skip_attribute]
     }
   end

@@ -200,7 +200,15 @@ module OrganizationsHelper
 
   def display_visualization(organization)
     html = ""
-    if organization == Organization.find('komunala-velenje-voda')
+    if visualization = organization.visualization
+      case visualization.type
+        when 'pie'
+          html += display_pie_chart(organization, visualization)
+        when 'bar'
+          html += display_bar_chart(organization, visualization)
+        else
+      end
+    elsif organization == Organization.find('komunala-velenje-voda')
       html += <<-HTML
         <div class="card-body">
           <canvas id="pie-chart" width="800" height="450"></canvas>
@@ -535,5 +543,74 @@ module OrganizationsHelper
       HTML
     end
     html.html_safe
+  end
+
+  def display_pie_chart(organization, visualization)
+    name = visualization.name
+    labels = visualization.data
+    hash = crate_hash_from_payload(organization.payload)
+    data = []
+    hash.each { |k,v| data << v[:attr_value] if labels.include?(k) }
+    html = <<-HTML
+      <div class="card-body">
+        <canvas id="pie-chart" width="800" height="450"></canvas>
+      </div>
+      <!-- Custom Chartjs JavaScript -->
+      <script>
+        $(function () {
+            "use strict";
+
+          // New chart
+          new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+              labels: #{labels},
+              datasets: [{
+                backgroundColor: ["#36a2eb", "#ff6384","#4bc0c0","#ffcd56","#07ff07", "#ffbb84","#4b44c0","#0f1151","#07aa07"],
+                data: #{data}
+              }]
+            },
+            options: {
+              title: {
+              display: true,
+              text: "#{name}"
+              }
+            }
+          });
+        });
+        </script>
+      HTML
+  end
+
+  def display_bar_chart(organization, visualization)
+    name = visualization.name
+    labels = visualization.data
+    hash = crate_hash_from_payload(organization.payload)
+    data = []
+    hash.each { |k,v| data << v[:attr_value] if labels.include?(k) }
+    html = <<-HTML
+      <div class="card-body">
+        <canvas id="bar-chart" width="800" height="450"></canvas>
+      </div>
+      <script>
+        new Chart(document.getElementById("bar-chart"), {
+          type: 'bar',
+          data: {
+            labels: #{labels},
+            datasets: [{
+              backgroundColor: ["#36a2eb", "#ff6384","#4bc0c0","#ffcd56","#07ff07", "#ffbb84","#4b44c0","#0f1151","#07aa07"],
+              data: #{data}
+            }]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+            display: true,
+            text: "#{name}"
+            }
+          }
+        });
+      </script>
+    HTML
   end
 end

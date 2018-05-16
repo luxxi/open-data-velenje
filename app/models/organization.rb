@@ -3,6 +3,9 @@ class Organization
   include Mongoid::Slug
   include Mongoid::Timestamps
   include PayloadParser
+
+  has_one :visualization
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
