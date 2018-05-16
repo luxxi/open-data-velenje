@@ -40,8 +40,12 @@ module OrganizationsHelper
       #{text_field_tag 'title', '', { required: true, placeholder: 'Naslov diagrama', class: 'form-control' }}
     </div>
     <div class="form-group">
-      #{f.label 'Izberi podatke za prikaz'}
-      #{select_tag 'fields', options_for_select(hash.keys), { class: 'form-control', multiple: true }}
+      #{f.label 'Izberi polje, ki vsebuje podatke za prikaz (vrednosti na diagramu)'}
+      #{select_tag 'val', options_for_select(hash.keys), { class: 'form-control' }}
+    </div>
+    <div class="form-group">
+      #{f.label 'Izberi polje, ki vsebuje ime podatkov (naslovi vrednosti na diagramu)'}
+      #{select_tag 'name', options_for_select(hash.keys), { class: 'form-control' }}
     </div>
     HTML
     html += <<-HTML
@@ -546,11 +550,12 @@ module OrganizationsHelper
   end
 
   def display_pie_chart(organization, visualization)
+    payload = organization.payload
     name = visualization.name
-    labels = visualization.data
-    hash = crate_hash_from_payload(organization.payload)
+    labels = []
     data = []
-    hash.each { |k,v| data << v[:attr_value] if labels.include?(k) }
+    labels = get_visualization_data(payload, visualization.data[:name])
+    data = get_visualization_data(payload, visualization.data[:val])
     html = <<-HTML
       <div class="card-body">
         <canvas id="pie-chart" width="800" height="450"></canvas>
@@ -583,11 +588,12 @@ module OrganizationsHelper
   end
 
   def display_bar_chart(organization, visualization)
+    payload = organization.payload
     name = visualization.name
-    labels = visualization.data
-    hash = crate_hash_from_payload(organization.payload)
+    labels = []
     data = []
-    hash.each { |k,v| data << v[:attr_value] if labels.include?(k) }
+    labels = get_visualization_data(payload, visualization.data[:name])
+    data = get_visualization_data(payload, visualization.data[:val])
     html = <<-HTML
       <div class="card-body">
         <canvas id="bar-chart" width="800" height="450"></canvas>

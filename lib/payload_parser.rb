@@ -6,6 +6,7 @@ module PayloadParser
       if value.is_a?(Hash)
          if hash = hash.merge(crate_hash_from_payload(value))
            hash[key] = create_fields(value) unless value[:attr_type].nil? && value[:attr_description].nil?
+           (hash[key][:attr_value] ||= []) << value[:attr_value]
          end
       elsif value.is_a?(Array)
         hash = hash.merge(crate_hash_from_payload(value.first))
@@ -57,13 +58,31 @@ module PayloadParser
     return obj
   end
 
+  # gets values for a specific key
+  def get_visualization_data(obj, key)
+    values = Array.new
+    if obj.respond_to?(:key?) && obj.key?(key)
+      values << obj[key][:attr_value]
+    end
+
+    if obj.is_a? Hash
+      obj.map do |k, v|
+       values << get_visualization_data(v, key)
+      end
+    elsif obj.is_a? Array
+      obj.each_with_index do |o, i|
+        values << get_visualization_data(o, key)
+      end
+    end
+    return values.flatten
+  end
+
   private
 
   def create_fields(value)
     {
       attr_type: value[:attr_type],
       attr_description: value[:attr_description],
-      attr_value: value[:attr_value],
       skip_attribute: value[:skip_attribute]
     }
   end
