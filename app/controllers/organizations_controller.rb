@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
     visualization = @organization.build_visualization
     visualization.type = params[:type]
     visualization.name = params[:title]
-    visualization.data = create_visualization_data(params[:val], params[:name], params[:type])
+    visualization.data = create_visualization_data(params[:val], params[:name], params[:loc], params[:type])
     if visualization.save
       redirect_to @organization, notice: 'Vizualizacija uspešno narejena.'
     else
@@ -72,13 +72,14 @@ class OrganizationsController < ApplicationController
 
   private
 
-  def create_visualization_data(val, name, type)
+  def create_visualization_data(val, name, loc, type)
     case type
       when 'pie'
         {val: val, name: name}
       when 'bar'
         {val: val, name: name}
       else
+        {name: name, loc: loc}
     end
   end
 

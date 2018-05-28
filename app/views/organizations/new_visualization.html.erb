@@ -10,7 +10,7 @@
       <%= form_for @organization, url: {action: 'create_visualization'} do |f| %>
         <div class="form-group">
           <%= f.label 'Tip vizualizacije' %>
-          <%= select_tag 'type', options_for_select({ 'Krožni diagram': 'pie', 'Stolpični diagram': 'bar', 'Točke na zemljevidu': 'map' }), { :class => 'form-control' } %>
+          <%= select_tag 'type', options_for_select({ 'Krožni diagram': 'pie', 'Stolpični diagram': 'bar', 'Točke na zemljevidu': 'map' }), { class: 'form-control' } %>
         </div>
         <%= create_visualization_form_from_payload(@payload,f) %>
       <% end %>

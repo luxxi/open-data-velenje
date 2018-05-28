@@ -35,17 +35,21 @@ module OrganizationsHelper
     hash = crate_hash_from_payload(payload)
     html = '<div class="box-body">'
     html += <<-HTML
-    <div class="form-group">
+    <div class="form-group" id="title_group">
       #{f.label 'Naslov diagrama'}
       #{text_field_tag 'title', '', { required: true, placeholder: 'Naslov diagrama', class: 'form-control' }}
     </div>
-    <div class="form-group">
-      #{f.label 'Izberi polje, ki vsebuje podatke za prikaz (vrednosti na diagramu)'}
+    <div class="form-group" id="val_group">
+      #{f.label 'Izberi polje, ki vsebuje podatke za prikaz (vrednosti)'}
       #{select_tag 'val', options_for_select(hash.keys), { class: 'form-control' }}
     </div>
-    <div class="form-group">
-      #{f.label 'Izberi polje, ki vsebuje ime podatkov (naslovi vrednosti na diagramu)'}
+    <div class="form-group" id="name_group">
+      #{f.label 'Izberi polje, ki vsebuje ime podatkov (naslovi vrednosti)'}
       #{select_tag 'name', options_for_select(hash.keys), { class: 'form-control' }}
+    </div>
+    <div class="form-group hidden" id="loc_group">
+      #{f.label 'Izberi polje, ki vsebuje lokacijo točk'}
+      #{select_tag 'loc', options_for_select(hash.keys), { class: 'form-control' }}
     </div>
     HTML
     html += <<-HTML
@@ -211,6 +215,7 @@ module OrganizationsHelper
         when 'bar'
           html += display_bar_chart(organization, visualization)
         else
+          html += display_map_chart(organization, visualization)
       end
     elsif organization == Organization.find('komunala-velenje-voda')
       html += <<-HTML
@@ -618,5 +623,55 @@ module OrganizationsHelper
         });
       </script>
     HTML
+  end
+
+  def display_map_chart(organization, visualization)
+    payload = organization.payload
+    name = visualization.name
+    labels = []
+    locs = []
+    labels = get_visualization_data(payload, visualization.data[:name])
+    locs = get_visualization_data(payload, visualization.data[:loc])
+    html = ""
+    locs.each_with_index do |v, i|
+      html += <<-HTML
+        <div id="map" style="width: 100%; height: 450px"></div>
+        <script>
+          function initMap() {
+            var mapOptions = {
+              zoom: 12,
+              scrollwheel: false,
+              center: new google.maps.LatLng(#{locs.first})
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'),
+                mapOptions);
+
+
+            // MARKERS
+            /****************************************************************/
+            var markerCount = #{locs.size};
+            var infowindow = new google.maps.InfoWindow();
+            var marker, i;
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(#{v}),
+                map: map,
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+              return function() {
+                infowindow.setContent('<div id="content">'+
+                  '<h1 id="firstHeading" class="firstHeading">#{labels[i]}</h1>'+
+                  '</div>');
+                infowindow.open(map, marker);
+              }
+            })(marker, i));
+          }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk9BfjyX7FrTgenjqYSx28i2RSGOL_5tM&callback=initMap">
+        </script>
+      HTML
+    end
+    html.html_safe
   end
 end
