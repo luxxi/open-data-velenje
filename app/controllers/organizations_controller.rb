@@ -30,6 +30,10 @@ class OrganizationsController < ApplicationController
 
   def create_visualization
     @organization = Organization.find(params[:organization_id])
+    if @organization.visualization.present?
+      @organization.visualization.destroy
+    end
+    
     visualization = @organization.build_visualization
     visualization.type = params[:type]
     visualization.name = params[:title]
