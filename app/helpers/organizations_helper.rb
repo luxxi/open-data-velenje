@@ -635,6 +635,7 @@ module OrganizationsHelper
     html = ""
     locs.each_with_index do |v, i|
       html += <<-HTML
+        <h3>#{name}</h3>
         <div id="map" style="width: 100%; height: 450px"></div>
         <script>
           function initMap() {
