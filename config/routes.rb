@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     post 'import_excel_api'
     get 'download_excel_template'
     post :switch, on: :collection
+    get :administration, on: :collection
+    post :approve
+    post :disapprove
   end
 
 

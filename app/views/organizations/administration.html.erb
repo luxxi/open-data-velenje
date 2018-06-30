@@ -1,0 +1,23 @@
+<div class="col-md-12 col-sm-12">
+  <div class="widget default-widget">
+    <h3 class="text-themecolor">Organizacije</h3>
+    <table>
+      <% @organizations.each do |organization| %>
+        <tr class="pt1">
+          <td><%= organization.name %></td>
+          <td>
+            <% if organization.approved? %>
+              <%= form_tag organization_disapprove_path(organization.id) do %>
+                <%= submit_tag "Onemogoči" %>
+              <% end %>
+            <% else %>
+              <%= form_tag organization_approve_path(organization.id) do %>
+                <%= submit_tag "Omogoči" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

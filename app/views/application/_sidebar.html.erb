@@ -37,6 +37,13 @@
           </li>
         </ul>
       </li>
+      <li>
+        <% if current_organization.admin? %>
+          <%= link_to(administration_organizations_path) do %>
+            <i class="fa fa-wrench"></i>Administracija
+          <% end %>
+        <% end %>
+     </li>
     </ul>
   </div>
 </div>
