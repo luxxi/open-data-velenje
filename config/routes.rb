@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'upload_api'
     post 'import_excel_api'
     get 'download_excel_template'
+    post :switch, on: :collection
   end
 
 

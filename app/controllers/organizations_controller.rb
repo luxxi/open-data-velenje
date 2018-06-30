@@ -43,6 +43,12 @@ class OrganizationsController < ApplicationController
     send_file("#{Rails.root}/public/open_data_velenje_template.xlsx")
   end
 
+  def switch
+    return unless current_organization.admin?
+    sign_in(:organization, Organization.find(params[:organization]))
+    redirect_to root_url
+  end
+
   protected
 
   def url_api
