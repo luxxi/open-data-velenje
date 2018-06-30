@@ -51,6 +51,9 @@ class Organization
   field :oc_location
   field :fetch_type
   field :fetch_metadata
+  field :admin, type: Boolean, default: false
+
+  scope :not_admin, -> { any_of({:admin.exists => false}, {:admin => false}) }
 
   def approve!
     update!(approved: true)

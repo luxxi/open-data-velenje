@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :restrict_access, only: [:set_api, :import_excel_api]
 
   def index
-    @organizations = Organization.where(approved: true)
+    @organizations = Organization.not_admin.where(approved: true)
   end
 
   def show
