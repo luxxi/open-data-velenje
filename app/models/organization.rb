@@ -2,6 +2,9 @@ class Organization
   include Mongoid::Document
   include Mongoid::Slug
   include Mongoid::Timestamps
+  include Mongoid::Document
+  include Mongoid::Paperclip
+
   include PayloadParser
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -51,6 +54,12 @@ class Organization
   field :oc_location
   field :fetch_type
   field :fetch_metadata
+
+  has_mongoid_attached_file :image, styles: {
+      :original => ['1920x1680>', :jpg],
+      :header   => ['1371x250>',   :jpg]
+  }
+  validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   def approve!
     update!(approved: true)
