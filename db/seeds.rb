@@ -11,7 +11,7 @@ Organization.create([
     email: "admin@odv.si",
     password: SecureRandom.urlsafe_base64(7),
     admin: true
-  }
+  },
   {
     name: "MIC",
     description: "Opisani podatki predstavljajo zajem podatkov iz naše vremenske postaje. Trenutno preko JSON-a delimo podatke o temperaturi, hitrosti in smeri vetra ter zračnega pritiska. Podatki se osvežujejo vsako minuto.",
