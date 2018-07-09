@@ -7,6 +7,10 @@ class RegistrationsController < Devise::RegistrationsController
     approvement_notice_path
   end
 
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
   private
 
   def sign_up_params

@@ -18,5 +18,15 @@
 
     <!-- Sidebar Navigation -->
     <%= render 'sidebar' if organization_signed_in? %>
+
+    <% if current_organization.admin?  %>
+      <div class="navbar-header">
+        <span class="white">Izberi organizacijo za urejanje:</span>
+        <%= form_tag(switch_organizations_path) do %>
+          <%= select_tag('organization', options_from_collection_for_select(Organization.not_admin, "id", "name")) %>
+          <%= submit_tag "Potrdi", class: "btn" %>
+        <% end %>
+      </div>
+    <% end %>
   </nav>
   <!-- Sidebar Navigation -->

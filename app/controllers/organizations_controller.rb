@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :restrict_access, only: [:set_api, :import_excel_api]
 
   def index
-    @organizations = Organization.where(approved: true)
+    @organizations = Organization.not_admin.where(approved: true)
   end
 
   def show
@@ -41,6 +41,31 @@ class OrganizationsController < ApplicationController
 
   def download_excel_template
     send_file("#{Rails.root}/public/open_data_velenje_template.xlsx")
+  end
+
+  def administration
+    return unless current_organization.admin?
+    @organizations = Organization.not_admin
+  end
+
+  def switch
+    return unless current_organization.admin?
+    sign_in(:organization, Organization.find(params[:organization]))
+    redirect_to root_url
+  end
+
+  def approve
+    return unless current_organization.admin?
+    organization = Organization.find(params[:organization_id])
+    organization.update(approved: true)
+    redirect_to administration_organizations_path
+  end
+
+  def disapprove
+    return unless current_organization.admin?
+    organization = Organization.find(params[:organization_id])
+    organization.update(approved: false)
+    redirect_to administration_organizations_path
   end
 
   protected
