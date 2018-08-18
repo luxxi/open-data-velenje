@@ -26,7 +26,7 @@ gem 'mongoid-slug' # slug generation for mongoid
 
 gem 'sidekiq' # background jobs
 
-gem 'sidekiq-cron'
+gem 'sidekiq-scheduler'
 
 gem 'httparty' # http parsing
 
