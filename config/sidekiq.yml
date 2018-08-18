@@ -1,0 +1,4 @@
+:schedule:
+  organizations_api_worker:
+    every: 1m
+    class: OrganizationsApiWorker

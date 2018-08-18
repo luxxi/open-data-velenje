@@ -1,4 +1,0 @@
-organizations_api_worker:
-  cron: "* * * * *"
-  class: "OrganizationsApiWorker"
-  queue: default
