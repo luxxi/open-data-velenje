@@ -44,11 +44,12 @@ services:
       - 1080:1080
 
   app:
+    build: .
+    restart: always
     depends_on:
       - 'mongo'
       - 'redis'
       - 'sidekiq'
-    build: .
     environment:
       - RAILS_ENV=${ENVIRONMENT}
     tty: true
